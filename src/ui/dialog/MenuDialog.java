@@ -13,12 +13,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * MenuDialog: Hộp thoại Thêm/Sửa món ăn đa năng.
- * Hỗ trợ chỉnh sửa thông tin món và quản lý danh sách Size/Giá bán ngay lập tức.
+ * Hỗ trợ chỉnh sửa thông tin món và quản lý danh sách Size/Giá bán ngay lập
+ * tức.
  */
 public class MenuDialog extends JDialog {
 
@@ -31,7 +31,7 @@ public class MenuDialog extends JDialog {
     private JComboBox<LoaiMon> cbLoai;
     private JCheckBox chkTrangThai;
     private JTextArea txtMoTa;
-    
+
     private JTable tableSize;
     private DefaultTableModel modelSize;
 
@@ -100,7 +100,7 @@ public class MenuDialog extends JDialog {
         txtMaMon.setEditable(false);
 
         txtTenMon = addInputRow(form, gbc, "Tên món ăn*:", FontAwesome.FONT);
-        
+
         addLabelRow(form, gbc, "Loại món:", FontAwesome.LIST_UL);
         cbLoai = new JComboBox<>(LoaiMon.values());
         form.add(cbLoai, gbc);
@@ -114,7 +114,7 @@ public class MenuDialog extends JDialog {
 
         addLabelRow(form, gbc, "Mô tả sản phẩm:", FontAwesome.ALIGN_LEFT);
         txtMoTa = new JTextArea(5, 20);
-        txtMoTa.setBorder(new LineBorder(new Color(230,230,230)));
+        txtMoTa.setBorder(new LineBorder(new Color(230, 230, 230)));
         form.add(new JScrollPane(txtMoTa), gbc);
 
         card.add(form, BorderLayout.CENTER);
@@ -123,35 +123,63 @@ public class MenuDialog extends JDialog {
 
     private JPanel createSizePriceCard() {
         JPanel card = createCardPanel("QUẢN LÝ SIZE & GIÁ");
-        
+
         // Toolbar cho bảng size
         JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         toolbar.setOpaque(false);
-        JButton btnAddSize = new JButton("Th\u00EA m Size");
+        JButton btnAddSize = new JButton("Thêm Size");
         btnAddSize.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS_CIRCLE, 14, Color.GRAY));
-        btnAddSize.addActionListener(e -> modelSize.addRow(new Object[]{controller.generateNextMaSize(), "M", 30000.0}));
-        
+        btnAddSize.addActionListener(e -> {
+            String baseId = controller.generateNextMaSize();
+            int maxNum = 1;
+            try {
+                maxNum = Integer.parseInt(baseId.substring(2));
+            } catch (Exception ex) {
+            }
+
+            for (int i = 0; i < modelSize.getRowCount(); i++) {
+                String existId = (String) modelSize.getValueAt(i, 0);
+                if (existId != null && existId.startsWith("SZ")) {
+                    try {
+                        int num = Integer.parseInt(existId.substring(2));
+                        if (num >= maxNum)
+                            maxNum = num + 1;
+                    } catch (Exception ex) {
+                    }
+                }
+            }
+            String newId = "SZ" + String.format("%03d", maxNum);
+            modelSize.addRow(new Object[] { newId, "M", 30000.0 });
+        });
+
         JButton btnRemSize = new JButton("X\u00F3a");
         btnRemSize.setIcon(IconFontSwing.buildIcon(FontAwesome.MINUS_CIRCLE, 14, Color.GRAY));
         btnRemSize.addActionListener(e -> {
             int row = tableSize.getSelectedRow();
-            if (row >= 0) modelSize.removeRow(row);
+            if (row >= 0)
+                modelSize.removeRow(row);
         });
-        
+
         toolbar.add(btnAddSize);
         toolbar.add(btnRemSize);
         card.add(toolbar, BorderLayout.NORTH);
 
         // Bảng Size
-        String[] cols = {"ID", "K\u00ED ch th\u01B0\u1EDB c", "Gi\u00E1 b\u00E1n (\u0111)"};
-        modelSize = new DefaultTableModel(cols, 0);
+        String[] cols = { "ID", "K\u00ED ch th\u01B0\u1EDB c", "Gi\u00E1 b\u00E1n (\u0111)" };
+        modelSize = new DefaultTableModel(cols, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0; // Không cho sửa cột ID (0)
+            }
+        };
         tableSize = new JTable(modelSize);
         tableSize.setRowHeight(35);
         tableSize.getColumnModel().getColumn(0).setPreferredWidth(80);
-        
+
         card.add(new JScrollPane(tableSize), BorderLayout.CENTER);
-        
-        JLabel lblNote = new JLabel("* Nh\u1EA5p \u0111\u01A1 p v\u00E0o \u00F4 \u0111\u1EC3 thay \u0111\u1ED3 i t\u00EA n Size ho\u1EB7c Gi\u00E1.");
+
+        JLabel lblNote = new JLabel(
+                "* Nh\u1EA5p \u0111\u01A1 p v\u00E0o \u00F4 \u0111\u1EC3 thay \u0111\u1ED3 i t\u00EA n Size ho\u1EB7c Gi\u00E1.");
         lblNote.setFont(new Font("Roboto", Font.ITALIC, 11));
         lblNote.setForeground(Color.GRAY);
         card.add(lblNote, BorderLayout.SOUTH);
@@ -191,7 +219,7 @@ public class MenuDialog extends JDialog {
             List<Size> sizes = controller.getSizeOfMon(dish.getMaMon());
             for (Size s : sizes) {
                 double price = controller.getGiaBan(s.getMaSize());
-                modelSize.addRow(new Object[]{s.getMaSize(), s.getTenSize(), price});
+                modelSize.addRow(new Object[] { s.getMaSize(), s.getTenSize(), price });
             }
         }
     }
@@ -213,7 +241,7 @@ public class MenuDialog extends JDialog {
                 String maS = (String) modelSize.getValueAt(i, 0);
                 String tenS = (String) modelSize.getValueAt(i, 1);
                 double gia = Double.parseDouble(modelSize.getValueAt(i, 2).toString());
-                
+
                 Size s = new Size(maS, tenS, dish.getMaMon());
                 boolean isSizeEdit = dish.getMaMon() != null && controller.getSizeById(maS) != null;
                 controller.saveSizeAndPrice(s, gia, isSizeEdit);
@@ -227,11 +255,12 @@ public class MenuDialog extends JDialog {
     private JPanel createCardPanel(String title) {
         JPanel p = new JPanel(new BorderLayout(0, 15));
         p.setBackground(Color.WHITE);
-        p.setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(230,230,230), 1), new EmptyBorder(20, 20, 20, 20)));
+        p.setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(230, 230, 230), 1),
+                new EmptyBorder(20, 20, 20, 20)));
         JLabel lbl = new JLabel(title);
         lbl.setFont(new Font("Roboto", Font.BOLD, 14));
         lbl.setForeground(PRIMARY_COLOR);
-        lbl.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(240,240,240)));
+        lbl.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(240, 240, 240)));
         p.add(lbl, BorderLayout.NORTH);
         return p;
     }
@@ -257,9 +286,14 @@ public class MenuDialog extends JDialog {
 
     private GridBagConstraints createGBC() {
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 0; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
         return gbc;
     }
 
-    public boolean isConfirmed() { return confirmed; }
+    public boolean isConfirmed() {
+        return confirmed;
+    }
 }

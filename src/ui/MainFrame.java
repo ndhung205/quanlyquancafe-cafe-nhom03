@@ -25,17 +25,15 @@ public class MainFrame extends JFrame {
     private final AuthController authController = new AuthController();
     private final ShiftController shiftController = new ShiftController();
 
-
     private JLabel lblCaInfo;
     private JLabel lblClock;
     private JPanel contentPanel;
-    
+
     // Sidebar toggle components
     private boolean isSidebarExpanded = true;
     private JPanel sidebar;
     private JLabel lblAvatar;
     private JLabel lblRole;
-    private JLabel lblAdmin;
     private final List<JButton> sidebarButtons = new ArrayList<>();
     private String tenNVFull = "";
     private String vaiTroFull = "";
@@ -53,21 +51,20 @@ public class MainFrame extends JFrame {
 
     private void initUI() {
         setLayout(new BorderLayout());
-        
+
         IconFontSwing.register(FontAwesome.getIconFont());
 
         // ═══════════════════ HEADER ═══════════════════
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(Color.WHITE);
         header.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(230, 230, 230)),
-            new EmptyBorder(10, 20, 10, 20)
-        ));
+                BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(230, 230, 230)),
+                new EmptyBorder(10, 20, 10, 20)));
 
         // Trái: thông tin ca và nút toggle
         JPanel pnlWest = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
         pnlWest.setOpaque(false);
-        
+
         JButton btnToggle = new JButton(IconFontSwing.buildIcon(FontAwesome.BARS, 20, new Color(44, 62, 80)));
         btnToggle.setFocusable(false);
         btnToggle.setContentAreaFilled(false);
@@ -80,7 +77,7 @@ public class MainFrame extends JFrame {
         lblCaInfo.setFont(new Font("Roboto", Font.BOLD, 14));
         updateCaInfo();
         pnlWest.add(lblCaInfo);
-        
+
         header.add(pnlWest, BorderLayout.WEST);
 
         // Phải: đồng hồ
@@ -122,8 +119,10 @@ public class MainFrame extends JFrame {
         // --- NHÓM 1: VẬN HÀNH ---
         addMenuHeader(sidebar, "V\u1EACN H\u00C0NH");
         JButton btnBanHang = createSidebarBtn("B\u00E1n H\u00E0ng", FontAwesome.SHOPPING_CART, new Color(243, 156, 18));
-        JButton btnDatBan  = createSidebarBtn("\u0110\u1EB7t B\u00E0n", FontAwesome.CALENDAR_CHECK_O, new Color(46, 204, 113));
-        JButton btnHoaDon  = createSidebarBtn("Ho\u00E1 \u0110\u01A1n", FontAwesome.FILE_TEXT_O, new Color(52, 152, 219));
+        JButton btnDatBan = createSidebarBtn("\u0110\u1EB7t B\u00E0n", FontAwesome.CALENDAR_CHECK_O,
+                new Color(46, 204, 113));
+        JButton btnHoaDon = createSidebarBtn("Ho\u00E1 \u0110\u01A1n", FontAwesome.FILE_TEXT_O,
+                new Color(52, 152, 219));
 
         sidebar.add(btnBanHang);
         sidebar.add(Box.createVerticalStrut(6));
@@ -135,10 +134,11 @@ public class MainFrame extends JFrame {
         if (SessionManager.isQuanLy()) {
             sidebar.add(Box.createVerticalStrut(25));
             addMenuHeader(sidebar, "THI\u1EBET L\u1EACP");
-            
-            JButton btnMon  = createSidebarBtn("Th\u1EF1c \u0110\u01A1n", FontAwesome.CUTLERY, new Color(230, 126, 34));
-            JButton btnGia  = createSidebarBtn("B\u1EA3ng Gi\u00E1", FontAwesome.MONEY, new Color(46, 204, 113));
-            JButton btnSoDo = createSidebarBtn("S\u01A1 \u0111\u1ED3 B\u00E0n", FontAwesome.TH_LARGE, new Color(52, 152, 219));
+
+            JButton btnMon = createSidebarBtn("Th\u1EF1c \u0110\u01A1n", FontAwesome.CUTLERY, new Color(230, 126, 34));
+            JButton btnGia = createSidebarBtn("B\u1EA3ng Gi\u00E1", FontAwesome.MONEY, new Color(46, 204, 113));
+            JButton btnSoDo = createSidebarBtn("S\u01A1 \u0111\u1ED3 B\u00E0n", FontAwesome.TH_LARGE,
+                    new Color(52, 152, 219));
 
             sidebar.add(btnMon);
             sidebar.add(Box.createVerticalStrut(6));
@@ -150,7 +150,7 @@ public class MainFrame extends JFrame {
             sidebar.add(Box.createVerticalStrut(25));
             addMenuHeader(sidebar, "QU\u1EA2N TR\u1ECA");
 
-            JButton btnNV  = createSidebarBtn("Nh\u00E2n Vi\u00EAn", FontAwesome.USERS, new Color(149, 165, 166));
+            JButton btnNV = createSidebarBtn("Nh\u00E2n Vi\u00EAn", FontAwesome.USERS, new Color(149, 165, 166));
             JButton btnKho = createSidebarBtn("Qu\u1EA3n L\u00FD Kho", FontAwesome.ARCHIVE, new Color(52, 73, 94));
             JButton btnThongKe = createSidebarBtn("Th\u1ED1ng K\u00EA", FontAwesome.BAR_CHART, new Color(155, 89, 182));
 
@@ -172,20 +172,17 @@ public class MainFrame extends JFrame {
         // Spacer đẩy nút đóng ca xuống đáy
         sidebar.add(Box.createVerticalGlue());
 
-        // Nút đóng ca
         if (SessionManager.isCaDangMo()) {
-            JButton btnDongCa = createSidebarBtn("\u0110\u00F3ng Ca", FontAwesome.STOP_CIRCLE, Color.WHITE);
+            JButton btnDongCa = createSidebarBtn("Đóng Ca", FontAwesome.STOP_CIRCLE, Color.WHITE);
             btnDongCa.setBackground(new Color(180, 40, 40));
             btnDongCa.addActionListener(e -> handleDongCa());
             sidebar.add(btnDongCa);
-            sidebar.add(Box.createVerticalStrut(8));
+        } else {
+            JButton btnLogout = createSidebarBtn("Đăng Xuất", FontAwesome.SIGN_OUT, Color.WHITE);
+            btnLogout.setBackground(new Color(180, 40, 40));
+            btnLogout.addActionListener(e -> handleLogout());
+            sidebar.add(btnLogout);
         }
-
-        // Nút đăng xuất
-        JButton btnLogout = createSidebarBtn("\u0110\u0103ng Xu\u1EA5t", FontAwesome.SIGN_OUT, Color.WHITE);
-        btnLogout.setBackground(new Color(60, 60, 80));
-        btnLogout.addActionListener(e -> handleLogout());
-        sidebar.add(btnLogout);
 
         add(sidebar, BorderLayout.WEST);
 
@@ -202,13 +199,13 @@ public class MainFrame extends JFrame {
         welcomeBox.setBackground(Color.WHITE);
         welcomeBox.setBorder(new EmptyBorder(50, 60, 50, 60));
 
-
         JLabel lblW1 = new JLabel("\u2615 COFFEE 11:01");
         lblW1.setFont(new Font("Roboto", Font.BOLD, 28));
         lblW1.setForeground(new Color(26, 26, 46));
         lblW1.setAlignmentX(CENTER_ALIGNMENT);
 
-        JLabel lblW2 = new JLabel("Ch\u1ECDn ch\u1EE9c n\u0103ng t\u1EEB menu b\u00EAn tr\u00E1i \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u.");
+        JLabel lblW2 = new JLabel(
+                "Ch\u1ECDn ch\u1EE9c n\u0103ng t\u1EEB menu b\u00EAn tr\u00E1i \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u.");
         lblW2.setFont(new Font("Roboto", Font.PLAIN, 16));
         lblW2.setForeground(new Color(150, 150, 150));
         lblW2.setAlignmentX(CENTER_ALIGNMENT);
@@ -243,7 +240,7 @@ public class MainFrame extends JFrame {
         // Tấm thẻ 4: Quản lý Hoá Đơn
         ui.panel.InvoicePanel invoicePanel = new ui.panel.InvoicePanel();
         contentPanel.add(invoicePanel, "HOA_DON");
-        
+
         // Tấm thẻ 5: Thống Kê (Dashboard)
         ui.panel.StatisticPanel statisticPanel = new ui.panel.StatisticPanel();
         contentPanel.add(statisticPanel, "THONG_KE");
@@ -287,20 +284,20 @@ public class MainFrame extends JFrame {
         btn.setFocusable(false);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn.setBorder(new EmptyBorder(0, 16, 0, 0));
-        
+
         btn.putClientProperty("full_text", text);
         sidebarButtons.add(btn);
 
         return btn;
     }
-    
+
     private void toggleSidebar() {
         isSidebarExpanded = !isSidebarExpanded;
         if (isSidebarExpanded) {
             sidebar.setPreferredSize(new Dimension(220, 0));
             lblAvatar.setText("  " + tenNVFull);
             lblRole.setVisible(true);
-            
+
             for (JButton btn : sidebarButtons) {
                 btn.setText((String) btn.getClientProperty("full_text"));
                 btn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -310,7 +307,7 @@ public class MainFrame extends JFrame {
             sidebar.setPreferredSize(new Dimension(65, 0));
             lblAvatar.setText("");
             lblRole.setVisible(false);
-            
+
             for (JButton btn : sidebarButtons) {
                 btn.setText("");
                 btn.setHorizontalAlignment(SwingConstants.CENTER);
@@ -382,9 +379,9 @@ public class MainFrame extends JFrame {
         if (SessionManager.isCaDangMo()) {
             // C\u00f3 ca \u0111ang m\u1edf -> m\u1edf b\u00e1o c\u00e1o \u0111\u00f3ng ca
             int confirm = JOptionPane.showConfirmDialog(this,
-                "B\u1ea1n \u0111ang c\u00f3 ca l\u00e0m vi\u1ec7c \u0111ang m\u1edf!\n\u0110\u0103ng xu\u1ea5t s\u1ebd y\u00eau c\u1ea7u \u0110\u00d3NG CA tr\u01b0\u1edbc.\nTi\u1ebfp t\u1ee5c?",
-                "X\u00e1c nh\u1eadn",
-                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    "B\u1ea1n \u0111ang c\u00f3 ca l\u00e0m vi\u1ec7c \u0111ang m\u1edf!\n\u0110\u0103ng xu\u1ea5t s\u1ebd y\u00eau c\u1ea7u \u0110\u00d3NG CA tr\u01b0\u1edbc.\nTi\u1ebfp t\u1ee5c?",
+                    "X\u00e1c nh\u1eadn",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
                 handleDongCa(); // M\u1edf ShiftCloseDialog
             }
