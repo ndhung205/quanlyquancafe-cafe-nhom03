@@ -1,32 +1,32 @@
 package entity;
 
-public class ChiTietDonHang {
-    private String maCTDH;
+public class ChiTietHoaDon {
+    private String maCTHD;
     private int    soLuong;
-    private double donGia;     // giá tại thời điểm order (snapshot)
+    private double donGia;     // giá tại thời điểm thanh toán (snapshot)
     private double thanhTien;  // soLuong * donGia
     private String ghiChu;     // ghi chú pha chế: đường, đá,...
-    private String maDonHang;  // FK DonHang
+    private String maHD;       // FK HoaDon
     private String maMon;      // FK Mon
     private String maSize;     // FK Size
 
-    public ChiTietDonHang() {}
+    public ChiTietHoaDon() {}
 
-    public ChiTietDonHang(String maCTDH, int soLuong, double donGia,
-                           double thanhTien, String ghiChu,
-                           String maDonHang, String maMon, String maSize) {
-        this.maCTDH    = maCTDH;
+    public ChiTietHoaDon(String maCTHD, int soLuong, double donGia,
+                          double thanhTien, String ghiChu,
+                          String maHD, String maMon, String maSize) {
+        this.maCTHD    = maCTHD;
         this.soLuong   = soLuong;
         this.donGia    = donGia;
         this.thanhTien = thanhTien;
         this.ghiChu    = ghiChu;
-        this.maDonHang = maDonHang;
+        this.maHD      = maHD;
         this.maMon     = maMon;
         this.maSize    = maSize;
     }
 
-    public String getMaCTDH()          { return maCTDH; }
-    public void   setMaCTDH(String v)  { this.maCTDH = v; }
+    public String getMaCTHD()          { return maCTHD; }
+    public void   setMaCTHD(String v)  { this.maCTHD = v; }
 
     public int  getSoLuong()       { return soLuong; }
     public void setSoLuong(int v)  { this.soLuong = v; }
@@ -40,8 +40,8 @@ public class ChiTietDonHang {
     public String getGhiChu()          { return ghiChu; }
     public void   setGhiChu(String v)  { this.ghiChu = v; }
 
-    public String getMaDonHang()          { return maDonHang; }
-    public void   setMaDonHang(String v)  { this.maDonHang = v; }
+    public String getMaHD()          { return maHD; }
+    public void   setMaHD(String v)  { this.maHD = v; }
 
     public String getMaMon()          { return maMon; }
     public void   setMaMon(String v)  { this.maMon = v; }
@@ -49,14 +49,13 @@ public class ChiTietDonHang {
     public String getMaSize()          { return maSize; }
     public void   setMaSize(String v)  { this.maSize = v; }
 
-    /** Tính lại thanhTien (chưa tính topping, topping tính riêng) */
     public void tinhThanhTien() {
         this.thanhTien = this.soLuong * this.donGia;
     }
 
     @Override
     public String toString() {
-        return "ChiTietDonHang{" + maCTDH + ", mon=" + maMon
+        return "ChiTietHoaDon{" + maCTHD + ", mon=" + maMon
                 + ", size=" + maSize + ", sl=" + soLuong
                 + ", tien=" + thanhTien + "}";
     }

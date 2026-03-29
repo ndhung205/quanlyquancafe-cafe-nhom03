@@ -1,20 +1,20 @@
 package entity;
 
-public class ChiTietDonHangTopping {
+public class ChiTietHoaDonTopping {
     private String maID;
     private int    soLuong;
-    private double giaTopping; // giá snapshot tại thời điểm order
-    private String maCTDH;     // FK ChiTietDonHang
+    private double giaTopping; // giá snapshot tại thời điểm thanh toán
+    private String maCTHD;     // FK ChiTietHoaDon
     private String maTopping;  // FK Topping
 
-    public ChiTietDonHangTopping() {}
+    public ChiTietHoaDonTopping() {}
 
-    public ChiTietDonHangTopping(String maID, int soLuong, double giaTopping,
-                                  String maCTDH, String maTopping) {
+    public ChiTietHoaDonTopping(String maID, int soLuong, double giaTopping,
+                                 String maCTHD, String maTopping) {
         this.maID       = maID;
         this.soLuong    = soLuong;
         this.giaTopping = giaTopping;
-        this.maCTDH     = maCTDH;
+        this.maCTHD     = maCTHD;
         this.maTopping  = maTopping;
     }
 
@@ -27,20 +27,19 @@ public class ChiTietDonHangTopping {
     public double getGiaTopping()          { return giaTopping; }
     public void   setGiaTopping(double v)  { this.giaTopping = v; }
 
-    public String getMaCTDH()          { return maCTDH; }
-    public void   setMaCTDH(String v)  { this.maCTDH = v; }
+    public String getMaCTHD()          { return maCTHD; }
+    public void   setMaCTHD(String v)  { this.maCTHD = v; }
 
     public String getMaTopping()          { return maTopping; }
     public void   setMaTopping(String v)  { this.maTopping = v; }
 
-    /** Tổng tiền topping của dòng này */
     public double getTongGiaTopping() {
         return soLuong * giaTopping;
     }
 
     @Override
     public String toString() {
-        return "ChiTietDonHangTopping{" + maID + ", topping=" + maTopping
+        return "ChiTietHoaDonTopping{" + maID + ", topping=" + maTopping
                 + ", sl=" + soLuong + ", gia=" + giaTopping + "}";
     }
 }

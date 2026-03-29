@@ -36,7 +36,7 @@ public class PasswordResetDialog extends JDialog {
         JPanel pnlHeader = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 15));
         pnlHeader.setBackground(PRIMARY_COLOR);
         JLabel lblTitle = new JLabel(" THIẾT LẬP MẬT KHẨU MỚI");
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 15));
         lblTitle.setForeground(Color.WHITE);
         lblTitle.setIcon(IconFontSwing.buildIcon(FontAwesome.KEY, 20, Color.WHITE));
         pnlHeader.add(lblTitle);
@@ -56,7 +56,7 @@ public class PasswordResetDialog extends JDialog {
         ));
 
         JLabel lblInfo = new JLabel("Nhập mật khẩu mới cho nhân viên:");
-        lblInfo.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        lblInfo.setFont(new Font("Roboto", Font.ITALIC, 13));
         lblInfo.setForeground(Color.GRAY);
         card.add(lblInfo);
         card.add(Box.createVerticalStrut(15));
@@ -85,7 +85,7 @@ public class PasswordResetDialog extends JDialog {
         btnSave.setPreferredSize(new Dimension(130, 38));
         btnSave.setBackground(new Color(46, 204, 113));
         btnSave.setForeground(Color.WHITE);
-        btnSave.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSave.setFont(new Font("Roboto", Font.BOLD, 13));
         btnSave.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 16, Color.WHITE));
         btnSave.addActionListener(e -> handleSave());
 
@@ -101,7 +101,7 @@ public class PasswordResetDialog extends JDialog {
     private void addInputLabel(JPanel container, String text, FontAwesome icon) {
         JLabel lbl = new JLabel(" " + text);
         lbl.setIcon(IconFontSwing.buildIcon(icon, 14, new Color(106, 90, 205)));
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lbl.setFont(new Font("Roboto", Font.BOLD, 12));
         lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         container.add(lbl);
         container.add(Box.createVerticalStrut(5));

@@ -77,7 +77,7 @@ public class MainFrame extends JFrame {
         pnlWest.add(btnToggle);
 
         lblCaInfo = new JLabel();
-        lblCaInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblCaInfo.setFont(new Font("Roboto", Font.BOLD, 14));
         updateCaInfo();
         pnlWest.add(lblCaInfo);
         
@@ -85,7 +85,7 @@ public class MainFrame extends JFrame {
 
         // Phải: đồng hồ
         lblClock = new JLabel();
-        lblClock.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        lblClock.setFont(new Font("Roboto", Font.PLAIN, 14));
         lblClock.setForeground(new Color(100, 100, 100));
         header.add(lblClock, BorderLayout.EAST);
 
@@ -104,13 +104,13 @@ public class MainFrame extends JFrame {
 
         lblAvatar = new JLabel("  " + tenNVFull);
         lblAvatar.setIcon(IconFontSwing.buildIcon(FontAwesome.USER_CIRCLE_O, 22, Color.WHITE));
-        lblAvatar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblAvatar.setFont(new Font("Roboto", Font.BOLD, 14));
         lblAvatar.setForeground(Color.WHITE);
         lblAvatar.setAlignmentX(LEFT_ALIGNMENT);
         lblAvatar.setBorder(new EmptyBorder(0, 8, 0, 0));
 
         lblRole = new JLabel("         " + vaiTroFull);
-        lblRole.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        lblRole.setFont(new Font("Roboto", Font.PLAIN, 11));
         lblRole.setForeground(new Color(150, 150, 170));
         lblRole.setAlignmentX(LEFT_ALIGNMENT);
 
@@ -204,12 +204,12 @@ public class MainFrame extends JFrame {
 
 
         JLabel lblW1 = new JLabel("\u2615 COFFEE 11:01");
-        lblW1.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        lblW1.setFont(new Font("Roboto", Font.BOLD, 28));
         lblW1.setForeground(new Color(26, 26, 46));
         lblW1.setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel lblW2 = new JLabel("Ch\u1ECDn ch\u1EE9c n\u0103ng t\u1EEB menu b\u00EAn tr\u00E1i \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u.");
-        lblW2.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        lblW2.setFont(new Font("Roboto", Font.PLAIN, 16));
         lblW2.setForeground(new Color(150, 150, 150));
         lblW2.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -279,7 +279,7 @@ public class MainFrame extends JFrame {
             btn.setIcon(icon);
             btn.setIconTextGap(15);
         }
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btn.setFont(new Font("Roboto", Font.BOLD, 13));
         btn.setForeground(new Color(210, 210, 220));
         btn.setBackground(new Color(40, 40, 65));
         btn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -323,7 +323,7 @@ public class MainFrame extends JFrame {
 
     private void addMenuHeader(JPanel container, String text) {
         JLabel lbl = new JLabel(text);
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 10));
+        lbl.setFont(new Font("Roboto", Font.BOLD, 10));
         lbl.setForeground(new Color(100, 100, 130));
         lbl.setAlignmentX(LEFT_ALIGNMENT);
         lbl.setBorder(new EmptyBorder(0, 8, 4, 0));
@@ -334,7 +334,7 @@ public class MainFrame extends JFrame {
         JPanel p = new JPanel(new GridBagLayout());
         p.setOpaque(false);
         JLabel lbl = new JLabel(title + " (S\u1EBD c\u00F3 trong b\u1EA3n c\u1EADp nh\u1EADt sau)");
-        lbl.setFont(new Font("Segoe UI", Font.ITALIC, 20));
+        lbl.setFont(new Font("Roboto", Font.ITALIC, 20));
         lbl.setForeground(Color.GRAY);
         p.add(lbl);
         return p;

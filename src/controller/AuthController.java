@@ -42,7 +42,7 @@ public class AuthController {
         }
 
         if (TrangThaiNhanVien.DA_NGHI.equals(nv.getTrangThai())) {
-            throw new AppException("T\u00E0i kho\u1EA3n \u0111\u00E3 b\u1ECB v\u00F4 hi\u1EC7 u ho\u00E1.");
+            throw new AppException("Tài khoản đã bị vô hiệu hóa.");
         }
 
         // Lưu vào session

@@ -1,12 +1,12 @@
 package ui.dialog;
 
 import controller.PaymentController;
-import controller.OrderController;
 import dto.CartItem;
 import entity.DonHang;
 import entity.HoaDon;
 import enums.HinhThucThanhToan;
 import exception.AppException;
+import utils.OrderManager;
 import utils.PDFPrinter;
 
 import javax.swing.*;
@@ -63,7 +63,7 @@ public class PaymentDialog extends JDialog {
 
         // ── Header ──
         JLabel lblTitle = new JLabel("Thanh To\u00E1n", SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 24));
         lblTitle.setForeground(new Color(44, 62, 80));
         main.add(lblTitle, BorderLayout.NORTH);
 
@@ -79,7 +79,7 @@ public class PaymentDialog extends JDialog {
         pnlBill.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(new Color(200, 200, 200)),
             "Th\u00F4ng tin h\u00F3a \u0111\u01A1n", TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Segoe UI", Font.BOLD, 14), new Color(100, 100, 100)
+            new Font("Roboto", Font.BOLD, 14), new Color(100, 100, 100)
         ));
 
         pnlBill.add(Box.createVerticalStrut(15));
@@ -102,7 +102,7 @@ public class PaymentDialog extends JDialog {
         JPanel pnlTotal = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pnlTotal.setOpaque(false);
         lblTongPhaiTra = new JLabel("C\u1EA7n TT: " + nf.format(tongPhaiTra) + " \u0111");
-        lblTongPhaiTra.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblTongPhaiTra.setFont(new Font("Roboto", Font.BOLD, 22));
         lblTongPhaiTra.setForeground(new Color(231, 76, 60));
         pnlTotal.add(lblTongPhaiTra);
         pnlBill.add(pnlTotal);
@@ -117,7 +117,7 @@ public class PaymentDialog extends JDialog {
         pnlPay.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(new Color(200, 200, 200)),
             "Ti\u1EC1n kh\u00E1ch tr\u1EA3", TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Segoe UI", Font.BOLD, 14), new Color(100, 100, 100)
+            new Font("Roboto", Font.BOLD, 14), new Color(100, 100, 100)
         ));
 
         // Hình thức
@@ -125,8 +125,8 @@ public class PaymentDialog extends JDialog {
         pnlMethod.setOpaque(false);
         rbTienMat = new JRadioButton("Ti\u1EC1n M\u1EB7t");
         rbChuyenKhoan = new JRadioButton("Chuy\u1EC3n Kho\u1EA3n \uD83D\uDCF1");
-        rbTienMat.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        rbChuyenKhoan.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        rbTienMat.setFont(new Font("Roboto", Font.BOLD, 13));
+        rbChuyenKhoan.setFont(new Font("Roboto", Font.BOLD, 13));
         rbTienMat.setOpaque(false);
         rbChuyenKhoan.setOpaque(false);
         rbTienMat.setSelected(true);
@@ -153,11 +153,11 @@ public class PaymentDialog extends JDialog {
         pnlInput.setBorder(new EmptyBorder(10, 15, 10, 15));
         
         JLabel lblKD = new JLabel("S\u1ED1 ti\u1EC1n kh\u00E1ch \u0111\u01B0a (VN\u0110):");
-        lblKD.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        lblKD.setFont(new Font("Roboto", Font.PLAIN, 14));
         pnlInput.add(lblKD);
 
         txtKhachDua = new JTextField(nf.format(tongPhaiTra));
-        txtKhachDua.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        txtKhachDua.setFont(new Font("Roboto", Font.BOLD, 22));
         txtKhachDua.setHorizontalAlignment(JTextField.RIGHT);
         
         // Auto update tiền thừa
@@ -172,7 +172,7 @@ public class PaymentDialog extends JDialog {
         JPanel pnlThua = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pnlThua.setOpaque(false);
         lblTienThua = new JLabel("Ti\u1EC1n th\u1EEBa tr\u1EA3 kh\u00E1ch: 0 \u0111");
-        lblTienThua.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        lblTienThua.setFont(new Font("Roboto", Font.BOLD, 16));
         lblTienThua.setForeground(new Color(39, 174, 96));
         pnlThua.add(lblTienThua);
 
@@ -189,13 +189,13 @@ public class PaymentDialog extends JDialog {
         bot.setOpaque(false);
 
         JButton btnHuy = new JButton("H\u1EE6Y");
-        btnHuy.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnHuy.setFont(new Font("Roboto", Font.BOLD, 14));
         btnHuy.setPreferredSize(new Dimension(100, 42));
         btnHuy.setFocusable(false);
         btnHuy.addActionListener(e -> dispose());
 
         JButton btnPay = new JButton("X\u00C1C NH\u1EACN THANH TO\u00C1N");
-        btnPay.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        btnPay.setFont(new Font("Roboto", Font.BOLD, 15));
         btnPay.setBackground(new Color(39, 174, 96));
         btnPay.setForeground(Color.WHITE);
         btnPay.setPreferredSize(new Dimension(220, 42));
@@ -216,11 +216,11 @@ public class PaymentDialog extends JDialog {
         row.setBorder(new EmptyBorder(0, 15, 0, 15));
 
         JLabel t = new JLabel(title);
-        t.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        t.setFont(new Font("Roboto", Font.PLAIN, 14));
         t.setForeground(new Color(80, 80, 80));
         
         JLabel v = new JLabel(val);
-        v.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        v.setFont(new Font("Roboto", Font.BOLD, 14));
         v.setForeground(new Color(44, 62, 80));
 
         row.add(t, BorderLayout.WEST);
@@ -264,8 +264,7 @@ public class PaymentDialog extends JDialog {
 
             HinhThucThanhToan ht = rbTienMat.isSelected() ? HinhThucThanhToan.TIEN_MAT : HinhThucThanhToan.CHUYEN_KHOAN;
             
-            OrderController oc = new OrderController();
-            List<CartItem> cart = oc.loadCart(donHang.getMaDonHang());
+            List<CartItem> cart = OrderManager.getInstance().getCart(donHang.getMaDonHang());
 
             HoaDon hd = paymentController.thanhToan(donHang, cart, tongPhaiTra, ht);
             isPaid = true;

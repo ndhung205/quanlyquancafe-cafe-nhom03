@@ -71,7 +71,7 @@ public class PriceDialog extends JDialog {
         h.setBorder(new EmptyBorder(0, 20, 0, 20));
 
         JLabel title = new JLabel(" TH\u00D4NG TIN B\u1EA2NG GI\u00C1");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        title.setFont(new Font("Roboto", Font.BOLD, 16));
         title.setForeground(Color.WHITE);
         title.setIcon(IconFontSwing.buildIcon(FontAwesome.MONEY, 24, Color.WHITE));
         h.add(title, BorderLayout.WEST);
@@ -152,7 +152,7 @@ public class PriceDialog extends JDialog {
         btnSave.setPreferredSize(new Dimension(140, 40));
         btnSave.setBackground(new Color(46, 204, 113));
         btnSave.setForeground(Color.WHITE);
-        btnSave.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btnSave.setFont(new Font("Roboto", Font.BOLD, 12));
         btnSave.addActionListener(e -> handleSave());
 
         JButton btnClose = new JButton(" \u0110\u00D3NG");
@@ -230,7 +230,7 @@ public class PriceDialog extends JDialog {
         p.setBackground(Color.WHITE);
         p.setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(230,230,230), 1), new EmptyBorder(20, 20, 20, 20)));
         JLabel lbl = new JLabel(title);
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lbl.setFont(new Font("Roboto", Font.BOLD, 14));
         lbl.setForeground(PRIMARY_COLOR);
         lbl.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(240,240,240)));
         p.add(lbl, BorderLayout.NORTH);
@@ -240,7 +240,7 @@ public class PriceDialog extends JDialog {
     private JTextField addInputRow(JPanel p, GridBagConstraints gbc, String label, FontAwesome icon) {
         JLabel l = new JLabel(" " + label);
         l.setIcon(IconFontSwing.buildIcon(icon, 14, Color.GRAY));
-        l.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        l.setFont(new Font("Roboto", Font.BOLD, 12));
         gbc.insets = new Insets(10,0,5,0);
         p.add(l, gbc); gbc.gridy++;
         gbc.insets = new Insets(0,0,0,0);

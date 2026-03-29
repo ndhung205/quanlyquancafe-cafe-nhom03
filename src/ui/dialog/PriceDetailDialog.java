@@ -51,7 +51,7 @@ public class PriceDetailDialog extends JDialog {
         h.setBorder(new EmptyBorder(0, 20, 0, 20));
         JLabel title = new JLabel(" \u0110I\u1EC0U CH\u1EC8NH GI\u00C1 T\u1EEBNG M\u00D3N");
         title.setForeground(Color.WHITE);
-        title.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        title.setFont(new Font("Roboto", Font.BOLD, 15));
         title.setIcon(IconFontSwing.buildIcon(FontAwesome.LIST_OL, 20, Color.WHITE));
         h.add(title, BorderLayout.WEST);
         add(h, BorderLayout.NORTH);
@@ -64,7 +64,7 @@ public class PriceDetailDialog extends JDialog {
 
         table = new JTable(model);
         table.setRowHeight(40);
-        table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        table.setFont(new Font("Roboto", Font.PLAIN, 14));
         table.getColumnModel().removeColumn(table.getColumnModel().getColumn(3)); // \u1EA8n c\u1ED9t maSize
 
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();

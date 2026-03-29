@@ -59,12 +59,12 @@ public class ShiftCloseDialog extends JDialog {
 
         // Title
         JLabel lblTitle = new JLabel("B\u00C1O C\u00C1O CU\u1ED0I CA", SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 22));
         lblTitle.setForeground(new Color(231, 76, 60));
         lblTitle.setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel lblCa = new JLabel("Ca: " + maCa + "  |  " + gioBatDau + " \u2192 " + gioHienTai, SwingConstants.CENTER);
-        lblCa.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblCa.setFont(new Font("Roboto", Font.PLAIN, 13));
         lblCa.setForeground(new Color(130, 130, 130));
         lblCa.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -92,18 +92,18 @@ public class ShiftCloseDialog extends JDialog {
 
         // Input tiền thực đếm
         JLabel lblThucDem = new JLabel("Ti\u1EC1n m\u1EB7t th\u1EF1c \u0111\u1EBFm (VN\u0110):");
-        lblThucDem.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblThucDem.setFont(new Font("Roboto", Font.BOLD, 14));
         lblThucDem.setForeground(new Color(44, 62, 80));
         lblThucDem.setAlignmentX(LEFT_ALIGNMENT);
 
         JTextField txtThucDem = new JTextField(nf.format(tienCanCo));
-        txtThucDem.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        txtThucDem.setFont(new Font("Roboto", Font.BOLD, 20));
         txtThucDem.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         txtThucDem.setHorizontalAlignment(JTextField.CENTER);
 
         // Chênh lệch label
         JLabel lblChenhLech = new JLabel("Ch\u00EAnh l\u1EC7ch: 0 \u0111");
-        lblChenhLech.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        lblChenhLech.setFont(new Font("Roboto", Font.BOLD, 15));
         lblChenhLech.setForeground(new Color(39, 174, 96));
         lblChenhLech.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -134,7 +134,7 @@ public class ShiftCloseDialog extends JDialog {
 
         // Button
         JButton btnDongCa = new JButton("X\u00C1C NH\u1EACN \u0110\u00D3NG CA");
-        btnDongCa.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        btnDongCa.setFont(new Font("Roboto", Font.BOLD, 15));
         btnDongCa.setMaximumSize(new Dimension(Integer.MAX_VALUE, 48));
         btnDongCa.setAlignmentX(CENTER_ALIGNMENT);
         btnDongCa.setBackground(new Color(231, 76, 60));
@@ -183,11 +183,11 @@ public class ShiftCloseDialog extends JDialog {
 
     private void addReportRow(JPanel panel, String label, String value) {
         JLabel lbl = new JLabel(label);
-        lbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lbl.setFont(new Font("Roboto", Font.PLAIN, 13));
         lbl.setForeground(new Color(100, 100, 100));
 
         JLabel val = new JLabel(value);
-        val.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        val.setFont(new Font("Roboto", Font.BOLD, 13));
         val.setForeground(new Color(44, 62, 80));
         val.setHorizontalAlignment(SwingConstants.RIGHT);
 

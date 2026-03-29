@@ -1,83 +1,46 @@
 package controller;
 
 import dao.BanDAO;
-import dao.ChiTietDonHangDAO;
-import dao.ChiTietDonHangToppingDAO;
-import dao.DonHangDAO;
 import dao.impl.BanDAOImpl;
-import dao.impl.ChiTietDonHangDAOImpl;
-import dao.impl.ChiTietDonHangToppingDAOImpl;
-import dao.impl.DonHangDAOImpl;
 import dto.CartItem;
 import entity.Ban;
-import entity.ChiTietDonHang;
-import entity.ChiTietDonHangTopping;
 import entity.DonHang;
-import enums.LoaiDon;
+import entity.Mon;
 import enums.TrangThaiBan;
-import enums.TrangThaiDonHang;
 import exception.AppException;
-import utils.IDGenerator;
+import utils.OrderManager;
 import utils.SessionManager;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Xử lý nghiệp vụ gọi món, lưu order, load order cũ.
+ * Xử lý nghiệp vụ gọi món. Đơn hàng và giỏ hàng chỉ lưu tạm trên RAM
+ * thông qua OrderManager, KHÔNG lưu database.
  */
 public class OrderController {
 
-    private final DonHangDAO donHangDAO;
-    private final ChiTietDonHangDAO ctDonHangDAO;
-    private final ChiTietDonHangToppingDAO ctToppingDAO;
     private final BanDAO banDAO;
-    private final MenuController menuController;
+    private final OrderManager orderManager;
 
     public OrderController() {
-        this.donHangDAO = new DonHangDAOImpl();
-        this.ctDonHangDAO = new ChiTietDonHangDAOImpl();
-        this.ctToppingDAO = new ChiTietDonHangToppingDAOImpl();
         this.banDAO = new BanDAOImpl();
-        this.menuController = new MenuController();
+        this.orderManager = OrderManager.getInstance();
     }
 
     /**
-     * Load order đang phục vụ của một đơn hàng thành List CartItem.
+     * Load giỏ hàng đang phục vụ của một đơn hàng từ RAM.
      */
     public List<CartItem> loadCart(String maDonHang) {
-        List<CartItem> cart = new ArrayList<>();
-        if (maDonHang == null)
-            return cart;
-
-        List<ChiTietDonHang> ctdhList = ctDonHangDAO.findByDonHang(maDonHang);
-        for (ChiTietDonHang ct : ctdhList) {
-            CartItem item = new CartItem(
-                    menuController.getMonById(ct.getMaMon()),
-                    menuController.getSizeById(ct.getMaSize()),
-                    ct.getSoLuong(),
-                    ct.getDonGia(),
-                    ct.getGhiChu());
-
-            // Load toppings cho món này
-            List<ChiTietDonHangTopping> topList = ctToppingDAO.findByCTDH(ct.getMaCTDH());
-            for (ChiTietDonHangTopping top : topList) {
-                item.addTopping(menuController.getToppingById(top.getMaTopping()), top.getSoLuong());
-                // Chỉnh sửa lại giá trị topping trong dto cho chính xác theo db lưu
-                item.getToppings().get(item.getToppings().size() - 1).giaTopping = top.getGiaTopping();
-            }
-            cart.add(item);
-        }
-        return cart;
+        if (maDonHang == null) return new ArrayList<>();
+        return orderManager.getCart(maDonHang);
     }
 
     /**
-     * Lưu order xuống DB.
-     * 
+     * Lưu order vào RAM (OrderManager).
+     *
      * @param donHangHienTai đơn hàng đang mở (có thể null nếu là tạo mới).
-     * @param ban            bàn được đặt (nếu là MANG_VE thì ban=null hoặc có mã
-     *                       MANG_VE tuỳ logic).
+     * @param ban            bàn được đặt (nếu là MANG_VE thì ban=null hoặc có mã MANG_VE).
      * @param cart           danh sách các món trong giỏ.
      */
     public DonHang saveOrder(DonHang donHangHienTai, Ban ban, List<CartItem> cart) {
@@ -95,20 +58,11 @@ public class OrderController {
 
         DonHang dh = donHangHienTai;
         if (isNew) {
-            String maDH = IDGenerator.newMaDonHang();
-            dh = new DonHang(
-                    maDH,
-                    LocalDateTime.now(),
-                    null,
-                    tongTien,
-                    "",
-                    TrangThaiDonHang.DANG_PHUC_VU,
-                    isMangVe ? LoaiDon.MANG_VE : LoaiDon.TAI_BAN,
-                    isMangVe ? null : ban.getMaBan(),
-                    null,
+            // Tạo đơn hàng mới trên RAM
+            dh = orderManager.createOrder(ban,
                     SessionManager.getCurrentCa().getMaCa(),
                     SessionManager.getMaNVHienTai());
-            donHangDAO.insert(dh);
+            dh.setTongTienTamTinh(tongTien);
 
             // Cập nhật trạng thái bàn = CÓ KHÁCH (nếu không phải mang về)
             if (!isMangVe && ban != null) {
@@ -117,49 +71,12 @@ public class OrderController {
         } else {
             // Update tổng tiền
             dh.setTongTienTamTinh(tongTien);
-            donHangDAO.update(dh);
-
-            // Xóa hết chi tiết cũ để thêm lại từ đầu
-            // Phải lấy danh sách CTDH cũ ra để xoá CTDHTopping trước (tránh FK constraint)
-            List<ChiTietDonHang> oldList = ctDonHangDAO.findByDonHang(dh.getMaDonHang());
-            for (ChiTietDonHang oldCT : oldList) {
-                // Lấy topping con
-                List<ChiTietDonHangTopping> tops = ctToppingDAO.findByCTDH(oldCT.getMaCTDH());
-                for (ChiTietDonHangTopping t : tops) {
-                    ctToppingDAO.delete(t.getMaID());
-                }
-            }
-            // Sau khi xoá topping xong mới xoá CTDH
-            ctDonHangDAO.deleteByDonHang(dh.getMaDonHang());
+            orderManager.putOrder(dh);
         }
 
-        // Insert giỏ hàng mới
-        for (CartItem item : cart) {
-            ChiTietDonHang ct = new ChiTietDonHang(
-                    IDGenerator.newMaChiTietDonHang(),
-                    item.getSoLuong(),
-                    item.getDonGiaSize(),
-                    item.getThanhTien(), // Lưu ý: thanhTien này bao gồm cả phần Topping chưa? DB schema ghi: soLuong *
-                                         // donGia (không chứa topping, topping tự getTongGiaTopping riêng).
-                    item.getGhiChu(),
-                    dh.getMaDonHang(),
-                    item.getMon().getMaMon(),
-                    item.getSize().getMaSize());
-            // Sửa lại công thức theo đúng mô tả entity ChiTietDonHang:
-            ct.tinhThanhTien(); // donGia * soLuong
-            ctDonHangDAO.insert(ct);
+        // Lưu giỏ hàng vào RAM
+        orderManager.setCart(dh.getMaDonHang(), cart);
 
-            // Insert toppings
-            for (CartItem.CartTopping top : item.getToppings()) {
-                ChiTietDonHangTopping ctt = new ChiTietDonHangTopping(
-                        IDGenerator.newMaCTDHTopping(),
-                        top.soLuong,
-                        top.giaTopping,
-                        ct.getMaCTDH(),
-                        top.topping.getMaTopping());
-                ctToppingDAO.insert(ctt);
-            }
-        }
         return dh;
     }
 
@@ -167,28 +84,16 @@ public class OrderController {
      * Hủy đơn hàng đang chưa thanh toán.
      */
     public void huyDonHang(String maDonHang) {
-        DonHang dh = donHangDAO.findById(maDonHang);
+        DonHang dh = orderManager.getOrder(maDonHang);
         if (dh != null) {
-            // Cập nhật trạng thái Đơn
-            donHangDAO.updateTrangThai(maDonHang, TrangThaiDonHang.DA_HUY);
-
-            // Xóa chi tiết đơn hàng (và CTDHTopping kèm theo)
-            List<ChiTietDonHang> oldList = ctDonHangDAO.findByDonHang(maDonHang);
-            for (ChiTietDonHang oldCT : oldList) {
-                // Xoá topping
-                List<ChiTietDonHangTopping> tops = ctToppingDAO.findByCTDH(oldCT.getMaCTDH());
-                for (ChiTietDonHangTopping t : tops) {
-                    ctToppingDAO.delete(t.getMaID());
-                }
-            }
-            // Xoá CTDH
-            ctDonHangDAO.deleteByDonHang(maDonHang);
-
             // Bàn về TRỐNG
             String maBan = dh.getMaBan();
             if (maBan != null && !maBan.isEmpty() && !"MANG_VE".equals(maBan)) {
                 banDAO.updateTrangThai(maBan, TrangThaiBan.TRONG);
             }
+
+            // Xóa đơn hàng khỏi RAM
+            orderManager.removeOrder(maDonHang);
         }
     }
 
@@ -196,24 +101,24 @@ public class OrderController {
      * Lấy danh sách các đơn MANG VỀ đang phục vụ.
      */
     public List<DonHang> getOpenTakeawayOrders() {
-        return donHangDAO.findDanhSachMangVeDangPhucVu();
+        return orderManager.getOpenTakeawayOrders();
     }
 
     /**
      * Lấy tóm tắt các món trong đơn hàng (ví dụ: "Cà phê sữa, Trà đào...")
      */
     public String getOrderSummary(String maDonHang) {
-        List<ChiTietDonHang> ctdhList = ctDonHangDAO.findByDonHang(maDonHang);
-        if (ctdhList.isEmpty()) return "(Ch\u01b0a c\u00f3 m\u00f3n)";
-        
+        List<CartItem> cart = orderManager.getCart(maDonHang);
+        if (cart.isEmpty()) return "(Chưa có món)";
+
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < ctdhList.size(); i++) {
-            entity.Mon m = menuController.getMonById(ctdhList.get(i).getMaMon());
+        for (int i = 0; i < cart.size(); i++) {
+            Mon m = cart.get(i).getMon();
             if (m != null) {
                 sb.append(m.getTenMon());
-                if (i < ctdhList.size() - 1) sb.append(", ");
+                if (i < cart.size() - 1) sb.append(", ");
             }
-            if (sb.length() > 50) { // Gi\u1edbi h\u1ea1n \u0111\u1ed9 d\u00e0i chu\u1ed7i t\u00f3m t\u1eaft
+            if (sb.length() > 50) {
                 sb.append("...");
                 break;
             }

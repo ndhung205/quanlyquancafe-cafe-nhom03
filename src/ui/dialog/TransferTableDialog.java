@@ -44,7 +44,7 @@ public class TransferTableDialog extends JDialog {
 
         // ── Tiêu đề ──
         JLabel lblTitle = new JLabel("B\u00E0n hi\u1EC7n t\u1EA1i: " + banNguon.getSoBan(), SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 18));
         main.add(lblTitle, BorderLayout.NORTH);
 
         // ── Khung giữa: Thao tác ──
@@ -58,8 +58,8 @@ public class TransferTableDialog extends JDialog {
         rbGopBan = new JRadioButton("G\u1ED9p v\u00E0o B\u00E0n kh\u00E1c");
         rbChuyenBan.setOpaque(false);
         rbGopBan.setOpaque(false);
-        rbChuyenBan.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        rbGopBan.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        rbChuyenBan.setFont(new Font("Roboto", Font.BOLD, 14));
+        rbGopBan.setFont(new Font("Roboto", Font.BOLD, 14));
 
         ButtonGroup group = new ButtonGroup();
         group.add(rbChuyenBan);
@@ -79,7 +79,7 @@ public class TransferTableDialog extends JDialog {
         
         cbDanhSachBan = new JComboBox<>();
         cbDanhSachBan.setPreferredSize(new Dimension(150, 30));
-        cbDanhSachBan.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        cbDanhSachBan.setFont(new Font("Roboto", Font.PLAIN, 14));
         pnlCombo.add(cbDanhSachBan);
 
         pnlCenter.add(pnlCombo);
@@ -95,7 +95,7 @@ public class TransferTableDialog extends JDialog {
         JButton btnXacNhan = new JButton("X\u00E1c Nh\u1EADn");
         btnXacNhan.setBackground(new Color(41, 128, 185));
         btnXacNhan.setForeground(Color.WHITE);
-        btnXacNhan.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnXacNhan.setFont(new Font("Roboto", Font.BOLD, 13));
         btnXacNhan.addActionListener(e -> commitAction());
 
         pnlBot.add(btnHuy);

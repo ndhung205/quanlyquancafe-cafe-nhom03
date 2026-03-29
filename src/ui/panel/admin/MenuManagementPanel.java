@@ -52,11 +52,11 @@ public class MenuManagementPanel extends JPanel {
         // 1. Breadcrumb
         JPanel pnlBreadcrumb = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         pnlBreadcrumb.setOpaque(false);
-        JLabel lblBreadcrumb = new JLabel("Admin / Thi\u1EBFt l\u1EADp / ");
+        JLabel lblBreadcrumb = new JLabel("Admin / Thiết lập / ");
         lblBreadcrumb.setForeground(Color.GRAY);
-        lblBreadcrumb.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        JLabel lblCurrent = new JLabel("Th\u1EF1c \u0111\u01A1 n");
-        lblCurrent.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblBreadcrumb.setFont(new Font("Roboto", Font.PLAIN, 13));
+        JLabel lblCurrent = new JLabel("Thực đơn");
+        lblCurrent.setFont(new Font("Roboto", Font.BOLD, 13));
         lblCurrent.setForeground(PRIMARY_COLOR);
         pnlBreadcrumb.add(lblBreadcrumb);
         pnlBreadcrumb.add(lblCurrent);
@@ -66,16 +66,16 @@ public class MenuManagementPanel extends JPanel {
         // 2. Title Section
         JPanel pnlTitle = new JPanel(new BorderLayout());
         pnlTitle.setOpaque(false);
-        JLabel lblTitle = new JLabel("QU\u1EA2N L\u00DD TH\u1EF0C \u0110\u01A0 N");
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        JLabel lblTitle = new JLabel("QUẢN LÝ THỰC ĐƠN");
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 22));
         lblTitle.setForeground(new Color(44, 62, 80));
         pnlTitle.add(lblTitle, BorderLayout.WEST);
 
-        btnAdd = new JButton(" Th\u00EA m M\u00F3n M\u1EDBi");
+        btnAdd = new JButton(" Thêm Món Mới");
         btnAdd.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 14, Color.WHITE));
         btnAdd.setBackground(new Color(46, 204, 113));
         btnAdd.setForeground(Color.WHITE);
-        btnAdd.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnAdd.setFont(new Font("Roboto", Font.BOLD, 13));
         btnAdd.setPreferredSize(new Dimension(180, 40));
         btnAdd.setFocusable(false);
         btnAdd.addActionListener(e -> handleAddMon());
@@ -95,14 +95,14 @@ public class MenuManagementPanel extends JPanel {
             @Override public void keyReleased(KeyEvent e) { performSearch(); }
         });
 
-        cbFilterLoai = new JComboBox<>(new String[]{"T\u1EA5t c\u1EA3 lo\u1EA1i", "\u0110\u1ED3 u\u1ED1ng", "\u0110\u1ED3 \u0103 n"});
+        cbFilterLoai = new JComboBox<>(new String[]{"Tất cả loại", "Đồ uống", "Đồ ăn"});
         cbFilterLoai.setPreferredSize(new Dimension(150, 35));
         cbFilterLoai.addActionListener(e -> performSearch());
 
         pnlFilter.add(lblSearchIcon);
         pnlFilter.add(txtSearch);
         pnlFilter.add(new JLabel("  |  "));
-        pnlFilter.add(new JLabel("Lo\u1EA1i m\u00F3n: "));
+        pnlFilter.add(new JLabel("Loại món: "));
         pnlFilter.add(cbFilterLoai);
 
         pnlHeader.add(pnlFilter);
@@ -110,15 +110,15 @@ public class MenuManagementPanel extends JPanel {
     }
 
     private void initTable() {
-        String[] cols = {"M\u00E3 m\u00F3n", "T\u00EAn m\u00F3n", "Lo\u1EA1i", "Kho\u1EA3ng gi\u00E1", "Tr\u1EA1ng th\u00E1i", "Thao t\u00E1c"};
+        String[] cols = {"Mã món", "Tên món", "Loại", "Khoảng giá", "Trạng thái", "Thao tác"};
         tableModel = new DefaultTableModel(cols, 0) {
             @Override public boolean isCellEditable(int row, int column) { return column == 5; }
         };
 
         table = new JTable(tableModel);
         table.setRowHeight(55);
-        table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        table.setFont(new Font("Roboto", Font.PLAIN, 14));
+        table.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
         table.getTableHeader().setBackground(new Color(236, 240, 241));
         table.setShowVerticalLines(false);
         table.setIntercellSpacing(new Dimension(0, 0));
@@ -151,7 +151,7 @@ public class MenuManagementPanel extends JPanel {
 
     private String getPriceRange(String maMon) {
         List<Size> sizes = controller.getSizeOfMon(maMon);
-        if (sizes.isEmpty()) return "Ch\u01B0a c\u00F3 gi\u00E1";
+        if (sizes.isEmpty()) return "Chưa có giá";
         double min = Double.MAX_VALUE;
         double max = 0;
         for (Size s : sizes) {
@@ -161,9 +161,9 @@ public class MenuManagementPanel extends JPanel {
                 max = Math.max(max, p);
             }
         }
-        if (max == 0) return "Ch\u01B0a c\u00F3 gi\u00E1";
-        if (min == max) return String.format("%,.0f \u0111", min);
-        return String.format("%,.0f - %,.0f \u0111", min, max);
+        if (max == 0) return "Chưa có giá";
+        if (min == max) return String.format("%,.0f đ", min);
+        return String.format("%,.0f - %,.0f đ", min, max);
     }
 
     private void performSearch() {
@@ -186,7 +186,7 @@ public class MenuManagementPanel extends JPanel {
         Mon m = new Mon();
         m.setMaMon(controller.generateNextMaMon());
         m.setTrangThai(true);
-        // M\u1ED1 i quan h\u1EC7 dialog t\u01B0\u01A1ng t\u1EF1 StaffDialog s\u1EBD build \u1EDF b\u01B0\u1EDBc sau
+        // Mối quan hệ dialog tương tự StaffDialog sẽ build ở bước sau
         ui.dialog.MenuDialog dlg = new ui.dialog.MenuDialog((Frame) SwingUtilities.getWindowAncestor(this), m, false);
         dlg.setVisible(true);
         if (dlg.isConfirmed()) {
@@ -211,10 +211,10 @@ public class MenuManagementPanel extends JPanel {
             boolean active = (boolean) v;
             if (active) {
                 lbl.setForeground(new Color(39, 174, 96));
-                lbl.setText("\u25CF \u0110ang b\u00E1n");
+                lbl.setText("● Đang bán");
             } else {
                 lbl.setForeground(new Color(149, 165, 166));
-                lbl.setText("\u25CF Ng\u1EEBng b\u00E1n");
+                lbl.setText("● Ngưng bán");
             }
             return lbl;
         }

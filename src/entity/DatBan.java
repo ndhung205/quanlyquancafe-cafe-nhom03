@@ -12,14 +12,14 @@ public class DatBan {
     private LocalDateTime   thoiGianDen;
     private LocalDateTime   thoiGianDat;
     private String          maBan;       // FK Ban
-    private String          maDonHang;   // FK DonHang (nullable - gán sau khi khách đến)
+    private String          maHD;        // FK HoaDon (nullable - gán sau khi khách thanh toán)
 
     public DatBan() {}
 
     public DatBan(String maDatBan, String tenKhach, String soDienThoai,
                   int soLuongNguoi, TrangThaiDatBan trangThai,
                   LocalDateTime thoiGianDen, LocalDateTime thoiGianDat,
-                  String maBan, String maDonHang) {
+                  String maBan, String maHD) {
         this.maDatBan     = maDatBan;
         this.tenKhach     = tenKhach;
         this.soDienThoai  = soDienThoai;
@@ -28,7 +28,7 @@ public class DatBan {
         this.thoiGianDen  = thoiGianDen;
         this.thoiGianDat  = thoiGianDat;
         this.maBan        = maBan;
-        this.maDonHang    = maDonHang;
+        this.maHD         = maHD;
     }
 
     public String getMaDatBan()          { return maDatBan; }
@@ -55,8 +55,8 @@ public class DatBan {
     public String getMaBan()          { return maBan; }
     public void   setMaBan(String v)  { this.maBan = v; }
 
-    public String getMaDonHang()          { return maDonHang; }
-    public void   setMaDonHang(String v)  { this.maDonHang = v; }
+    public String getMaHD()          { return maHD; }
+    public void   setMaHD(String v)  { this.maHD = v; }
 
     /** Kiểm tra đơn đặt bàn có bị quá hạn không (quá 15 phút so với giờ hẹn) */
     public boolean isQuaHan() {

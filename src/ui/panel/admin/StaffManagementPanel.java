@@ -53,9 +53,9 @@ public class StaffManagementPanel extends JPanel {
         pnlBreadcrumb.setOpaque(false);
         JLabel lblBreadcrumb = new JLabel("Admin / Qu\u1EA3n tr\u1ECB / ");
         lblBreadcrumb.setForeground(Color.GRAY);
-        lblBreadcrumb.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblBreadcrumb.setFont(new Font("Roboto", Font.PLAIN, 13));
         JLabel lblCurrent = new JLabel("Nh\u00E2n vi\u00EAn");
-        lblCurrent.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblCurrent.setFont(new Font("Roboto", Font.BOLD, 13));
         lblCurrent.setForeground(PRIMARY_COLOR);
         pnlBreadcrumb.add(lblBreadcrumb);
         pnlBreadcrumb.add(lblCurrent);
@@ -66,7 +66,7 @@ public class StaffManagementPanel extends JPanel {
         JPanel pnlTitle = new JPanel(new BorderLayout());
         pnlTitle.setOpaque(false);
         JLabel lblTitle = new JLabel("DANH S\u00C1CH NH\u00C2N VI\u00CAN");
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 22));
         lblTitle.setForeground(new Color(44, 62, 80));
         pnlTitle.add(lblTitle, BorderLayout.WEST);
 
@@ -74,7 +74,7 @@ public class StaffManagementPanel extends JPanel {
         btnAdd.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 14, Color.WHITE));
         btnAdd.setBackground(new Color(46, 204, 113));
         btnAdd.setForeground(Color.WHITE);
-        btnAdd.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnAdd.setFont(new Font("Roboto", Font.BOLD, 13));
         btnAdd.setPreferredSize(new Dimension(200, 40));
         btnAdd.setFocusable(false);
         btnAdd.addActionListener(e -> handleAddEmployee());
@@ -116,8 +116,8 @@ public class StaffManagementPanel extends JPanel {
 
         table = new JTable(tableModel);
         table.setRowHeight(55);
-        table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        table.setFont(new Font("Roboto", Font.PLAIN, 14));
+        table.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
         table.getTableHeader().setBackground(new Color(236, 240, 241));
         table.setShowVerticalLines(false);
         table.setIntercellSpacing(new Dimension(0, 0));

@@ -77,14 +77,14 @@ public class MenuDialog extends JDialog {
         header.setBorder(new EmptyBorder(0, 25, 0, 25));
 
         JLabel title = new JLabel(" CHI TIẾT SẢN PHẨM");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        title.setFont(new Font("Roboto", Font.BOLD, 18));
         title.setForeground(Color.WHITE);
         title.setIcon(IconFontSwing.buildIcon(FontAwesome.COFFEE, 32, Color.WHITE));
         header.add(title, BorderLayout.WEST);
 
         JLabel breadcrumb = new JLabel("Thực đơn > " + (isEditMode ? "Cập nhật" : "Thêm mới"));
         breadcrumb.setForeground(new Color(236, 240, 241));
-        breadcrumb.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        breadcrumb.setFont(new Font("Roboto", Font.ITALIC, 13));
         header.add(breadcrumb, BorderLayout.EAST);
 
         return header;
@@ -152,7 +152,7 @@ public class MenuDialog extends JDialog {
         card.add(new JScrollPane(tableSize), BorderLayout.CENTER);
         
         JLabel lblNote = new JLabel("* Nh\u1EA5p \u0111\u01A1 p v\u00E0o \u00F4 \u0111\u1EC3 thay \u0111\u1ED3 i t\u00EA n Size ho\u1EB7c Gi\u00E1.");
-        lblNote.setFont(new Font("Segoe UI", Font.ITALIC, 11));
+        lblNote.setFont(new Font("Roboto", Font.ITALIC, 11));
         lblNote.setForeground(Color.GRAY);
         card.add(lblNote, BorderLayout.SOUTH);
 
@@ -167,7 +167,7 @@ public class MenuDialog extends JDialog {
         btnSave.setPreferredSize(new Dimension(160, 40));
         btnSave.setBackground(new Color(46, 204, 113));
         btnSave.setForeground(Color.WHITE);
-        btnSave.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSave.setFont(new Font("Roboto", Font.BOLD, 13));
         btnSave.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 16, Color.WHITE));
         btnSave.addActionListener(e -> handleSave());
 
@@ -229,7 +229,7 @@ public class MenuDialog extends JDialog {
         p.setBackground(Color.WHITE);
         p.setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(230,230,230), 1), new EmptyBorder(20, 20, 20, 20)));
         JLabel lbl = new JLabel(title);
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lbl.setFont(new Font("Roboto", Font.BOLD, 14));
         lbl.setForeground(PRIMARY_COLOR);
         lbl.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(240,240,240)));
         p.add(lbl, BorderLayout.NORTH);
@@ -248,7 +248,7 @@ public class MenuDialog extends JDialog {
     private void addLabelRow(JPanel p, GridBagConstraints gbc, String text, FontAwesome icon) {
         JLabel lbl = new JLabel(" " + text);
         lbl.setIcon(IconFontSwing.buildIcon(icon, 14, Color.GRAY));
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lbl.setFont(new Font("Roboto", Font.BOLD, 12));
         gbc.insets = new Insets(10, 0, 5, 0);
         p.add(lbl, gbc);
         gbc.gridy++;

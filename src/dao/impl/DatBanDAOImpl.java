@@ -25,13 +25,13 @@ public class DatBanDAOImpl implements DatBanDAO {
             rs.getTimestamp("thoiGianDen") != null ? rs.getTimestamp("thoiGianDen").toLocalDateTime() : null,
             rs.getTimestamp("thoiGianDat") != null ? rs.getTimestamp("thoiGianDat").toLocalDateTime() : null,
             rs.getString("maBan"),
-            rs.getString("maDonHang")
+            rs.getString("maHD")
         );
     }
 
     @Override
     public boolean insert(DatBan datBan) {
-        String sql = "INSERT INTO DatBan(maDatBan, tenKhach, soDienThoai, soLuongNguoi, trangThai, thoiGianDen, thoiGianDat, maBan, maDonHang) VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO DatBan(maDatBan, tenKhach, soDienThoai, soLuongNguoi, trangThai, thoiGianDen, thoiGianDat, maBan, maHD) VALUES(?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setString(1, datBan.getMaDatBan());
             ps.setString(2, datBan.getTenKhach());
@@ -41,7 +41,7 @@ public class DatBanDAOImpl implements DatBanDAO {
             ps.setTimestamp(6, datBan.getThoiGianDen() != null ? Timestamp.valueOf(datBan.getThoiGianDen()) : null);
             ps.setTimestamp(7, datBan.getThoiGianDat() != null ? Timestamp.valueOf(datBan.getThoiGianDat()) : null);
             ps.setString(8, datBan.getMaBan());
-            ps.setString(9, datBan.getMaDonHang());
+            ps.setString(9, datBan.getMaHD());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("DatBanDAOImpl.insert: " + e.getMessage());
@@ -51,7 +51,7 @@ public class DatBanDAOImpl implements DatBanDAO {
 
     @Override
     public boolean update(DatBan datBan) {
-        String sql = "UPDATE DatBan SET tenKhach=?, soDienThoai=?, soLuongNguoi=?, trangThai=?, thoiGianDen=?, thoiGianDat=?, maBan=?, maDonHang=? WHERE maDatBan=?";
+        String sql = "UPDATE DatBan SET tenKhach=?, soDienThoai=?, soLuongNguoi=?, trangThai=?, thoiGianDen=?, thoiGianDat=?, maBan=?, maHD=? WHERE maDatBan=?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setString(1, datBan.getTenKhach());
             ps.setString(2, datBan.getSoDienThoai());
@@ -60,7 +60,7 @@ public class DatBanDAOImpl implements DatBanDAO {
             ps.setTimestamp(5, datBan.getThoiGianDen() != null ? Timestamp.valueOf(datBan.getThoiGianDen()) : null);
             ps.setTimestamp(6, datBan.getThoiGianDat() != null ? Timestamp.valueOf(datBan.getThoiGianDat()) : null);
             ps.setString(7, datBan.getMaBan());
-            ps.setString(8, datBan.getMaDonHang());
+            ps.setString(8, datBan.getMaHD());
             ps.setString(9, datBan.getMaDatBan());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {

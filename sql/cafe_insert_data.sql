@@ -1,7 +1,4 @@
--- ================================================================
--- DU LIEU MAU: QuanLyQuanCafe v9
--- Thu tu insert: bang cha truoc, bang con sau
--- ================================================================
+
 
 USE QuanLyQuanCafe;
 GO
@@ -23,12 +20,12 @@ INSERT INTO NhanVien (maNV, tenNV, ngaySinh, soDienThoai, diaChi, username, pass
 GO
 
 -- 3. CaLamViec
-INSERT INTO CaLamViec (maCa, ngayLam, gioBatDau, gioKetThuc, trangThai, maNV, maKhuVuc) VALUES
-('CA001', '2026-03-22', '06:00', '14:00', 'DA_DONG',  'NV002', 'KV001'),
-('CA002', '2026-03-22', '06:00', '14:00', 'DA_DONG',  'NV003', 'KV002'),
-('CA003', '2026-03-22', '14:00', '22:00', 'DA_DONG',  'NV004', 'KV001'),
-('CA004', '2026-03-23', '06:00',  NULL,   'DANG_LAM', 'NV002', 'KV001'),
-('CA005', '2026-03-23', '06:00',  NULL,   'DANG_LAM', 'NV003', 'KV002');
+INSERT INTO CaLamViec (maCa, ngayLam, gioBatDau, gioKetThuc, tongDoanhThu, trangThai, maNV, maKhuVuc) VALUES
+('CA001', '2026-03-22', '06:00', '14:00', 0, 'DA_DONG',  'NV002', 'KV001'),
+('CA002', '2026-03-22', '06:00', '14:00', 0, 'DA_DONG',  'NV003', 'KV002'),
+('CA003', '2026-03-22', '14:00', '22:00', 0, 'DA_DONG',  'NV004', 'KV001'),
+('CA004', '2026-03-23', '06:00',  NULL,   0, 'DANG_LAM', 'NV002', 'KV001'),
+('CA005', '2026-03-23', '06:00',  NULL,   0, 'DANG_LAM', 'NV003', 'KV002');
 GO
 
 -- 4. Mon

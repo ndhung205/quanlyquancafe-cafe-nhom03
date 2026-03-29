@@ -1,6 +1,6 @@
 package ui.dialog;
 
-import controller.OrderController;
+import controller.InvoiceController;
 import dto.CartItem;
 import entity.HoaDon;
 
@@ -21,7 +21,7 @@ import utils.PDFPrinter;
 public class InvoiceDetailDialog extends JDialog {
 
     private final HoaDon hoaDon;
-    private final OrderController orderController;
+    private final InvoiceController invoiceController;
     
     private final NumberFormat nf = NumberFormat.getInstance(Locale.forLanguageTag("vi-VN"));
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -29,7 +29,7 @@ public class InvoiceDetailDialog extends JDialog {
     public InvoiceDetailDialog(JFrame parent, HoaDon hoaDon) {
         super(parent, "Chi Ti\u1EBFt H\u00F3a \u0110\u01A1n", true);
         this.hoaDon = hoaDon;
-        this.orderController = new OrderController();
+        this.invoiceController = new InvoiceController();
 
         setSize(550, 600);
         setLocationRelativeTo(parent);
@@ -49,7 +49,7 @@ public class InvoiceDetailDialog extends JDialog {
         pnlHeader.setOpaque(false);
 
         JLabel lblTitle = new JLabel("H\u00D3A \u0110\u01A1N THANH TO\u00C1N", SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 22));
         lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         pnlHeader.add(lblTitle);
         pnlHeader.add(Box.createVerticalStrut(15));
@@ -59,7 +59,8 @@ public class InvoiceDetailDialog extends JDialog {
                     : "";
 
         pnlHeader.add(createDetailRow("M\u00E3 h\u00F3a \u0111\u01A1n:", hoaDon.getMaHD()));
-        pnlHeader.add(createDetailRow("M\u00E3 \u0111\u01A1n h\u00E0ng:", hoaDon.getMaDonHang()));
+        pnlHeader.add(createDetailRow("B\u00E0n:", hoaDon.getMaBan() != null ? hoaDon.getMaBan() : "Mang v\u1EC1"));
+        pnlHeader.add(createDetailRow("Lo\u1EA1i \u0111\u01A1n:", hoaDon.getLoaiDon() != null ? hoaDon.getLoaiDon().name() : "N/A"));
         pnlHeader.add(createDetailRow("Th\u1EDDi gian:", time));
         pnlHeader.add(createDetailRow("Thu ng\u00E2n:", hoaDon.getMaNV() != null ? hoaDon.getMaNV() : "N/A"));
         
@@ -76,8 +77,8 @@ public class InvoiceDetailDialog extends JDialog {
         };
         JTable table = new JTable(model);
         table.setRowHeight(30);
-        table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
+        table.setFont(new Font("Roboto", Font.PLAIN, 13));
+        table.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 13));
         
         table.getColumnModel().getColumn(0).setPreferredWidth(210);
         table.getColumnModel().getColumn(1).setPreferredWidth(45);
@@ -98,7 +99,7 @@ public class InvoiceDetailDialog extends JDialog {
         table.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
 
         // Lấy chi tiết đơn hàng
-        List<CartItem> items = orderController.loadCart(hoaDon.getMaDonHang());
+        List<CartItem> items = invoiceController.getChiTietHoaDon(hoaDon.getMaHD());
         for (CartItem item : items) {
             int totalSubRows = 1 + item.getToppings().size() + (item.getGhiChu().isEmpty() ? 0 : 1);
             
@@ -109,25 +110,25 @@ public class InvoiceDetailDialog extends JDialog {
 
             // 1. Dòng chính (Món + Size)
             String mainName = "<b>" + item.getMon().getTenMon() + "</b> (" + item.getSize().getTenSize() + ")";
-            nameHtml.append("<tr><td style='font-family:Segoe UI; font-size:12px;'>").append(mainName).append("</td></tr>");
-            priceHtml.append("<tr><td align='right' style='font-family:Segoe UI; font-size:12px;'>").append(nf.format(item.getDonGiaSize())).append("đ</td></tr>");
-            amountHtml.append("<tr><td align='right' style='font-family:Segoe UI; font-size:12px;'>").append(nf.format(item.getDonGiaSize() * item.getSoLuong())).append("đ</td></tr>");
+            nameHtml.append("<tr><td style='font-family:Roboto; font-size:12px;'>").append(mainName).append("</td></tr>");
+            priceHtml.append("<tr><td align='right' style='font-family:Roboto; font-size:12px;'>").append(nf.format(item.getDonGiaSize())).append("đ</td></tr>");
+            amountHtml.append("<tr><td align='right' style='font-family:Roboto; font-size:12px;'>").append(nf.format(item.getDonGiaSize() * item.getSoLuong())).append("đ</td></tr>");
 
             // 2. Các dòng Topping
             for (dto.CartItem.CartTopping ctx : item.getToppings()) {
                 String topName = "&nbsp;&nbsp;&nbsp;+ " + ctx.topping.getTenTopping() + " (x" + ctx.soLuong + ")";
-                nameHtml.append("<tr><td style='font-family:Segoe UI; font-size:10px; color:gray;'>").append(topName).append("</td></tr>");
+                nameHtml.append("<tr><td style='font-family:Roboto; font-size:10px; color:gray;'>").append(topName).append("</td></tr>");
                 
                 String topPrice = "+ " + nf.format(ctx.giaTopping * ctx.soLuong) + "đ";
-                priceHtml.append("<tr><td align='right' style='font-family:Segoe UI; font-size:10px; color:gray;'>").append(topPrice).append("</td></tr>");
+                priceHtml.append("<tr><td align='right' style='font-family:Roboto; font-size:10px; color:gray;'>").append(topPrice).append("</td></tr>");
                 
                 double topTotal = ctx.giaTopping * ctx.soLuong * item.getSoLuong();
-                amountHtml.append("<tr><td align='right' style='font-family:Segoe UI; font-size:10px; color:gray;'>+ ").append(nf.format(topTotal)).append("đ</td></tr>");
+                amountHtml.append("<tr><td align='right' style='font-family:Roboto; font-size:10px; color:gray;'>+ ").append(nf.format(topTotal)).append("đ</td></tr>");
             }
 
             // 3. Dòng Ghi chú (nếu có)
             if (!item.getGhiChu().isEmpty()) {
-                nameHtml.append("<tr><td style='font-family:Segoe UI; font-size:10px; color:orange;'>(").append(item.getGhiChu()).append(")</td></tr>");
+                nameHtml.append("<tr><td style='font-family:Roboto; font-size:10px; color:orange;'>(").append(item.getGhiChu()).append(")</td></tr>");
                 priceHtml.append("<tr><td>&nbsp;</td></tr>");
                 amountHtml.append("<tr><td>&nbsp;</td></tr>");
             }
@@ -158,11 +159,11 @@ public class InvoiceDetailDialog extends JDialog {
         pnlTotal.setBorder(new EmptyBorder(10, 0, 0, 0));
         
         JLabel lblHinhThuc = new JLabel("H\u00ECnh th\u1EE9c TT: " + (hoaDon.getHinhThucThanhToan() != null ? hoaDon.getHinhThucThanhToan().name() : "N/A"));
-        lblHinhThuc.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        lblHinhThuc.setFont(new Font("Roboto", Font.PLAIN, 14));
         lblHinhThuc.setHorizontalAlignment(SwingConstants.RIGHT);
         
         JLabel lblTongTien = new JLabel("T\u1ED5ng Thanh To\u00E1n: " + nf.format(hoaDon.getTongTienPhaiTra()) + "\u0111");
-        lblTongTien.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblTongTien.setFont(new Font("Roboto", Font.BOLD, 18));
         lblTongTien.setHorizontalAlignment(SwingConstants.RIGHT);
         lblTongTien.setForeground(new Color(231, 76, 60));
 
@@ -177,13 +178,13 @@ public class InvoiceDetailDialog extends JDialog {
         pnlBot.setOpaque(false);
 
         JButton btnClose = new JButton("\u0110\u00D3NG");
-        btnClose.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnClose.setFont(new Font("Roboto", Font.BOLD, 13));
         btnClose.setPreferredSize(new Dimension(120, 40));
         btnClose.setFocusable(false);
         btnClose.addActionListener(e -> dispose());
 
         JButton btnPrint = new JButton("\uD83D\uDDA8 IN H\u00D3A \u0110\u01A0N");
-        btnPrint.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnPrint.setFont(new Font("Roboto", Font.BOLD, 13));
         btnPrint.setBackground(new Color(41, 128, 185));
         btnPrint.setForeground(Color.WHITE);
         btnPrint.setPreferredSize(new Dimension(150, 40));
@@ -218,11 +219,11 @@ public class InvoiceDetailDialog extends JDialog {
         p.setBorder(new EmptyBorder(3, 0, 3, 0));
         
         JLabel t = new JLabel(title);
-        t.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        t.setFont(new Font("Roboto", Font.PLAIN, 14));
         t.setForeground(Color.DARK_GRAY);
         
         JLabel v = new JLabel(value);
-        v.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        v.setFont(new Font("Roboto", Font.BOLD, 14));
         
         p.add(t, BorderLayout.WEST);
         p.add(v, BorderLayout.EAST);

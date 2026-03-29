@@ -55,7 +55,7 @@ public class MenuController {
         return monDAO.findByLoai(loaiMon);
     }
     
-    /** L\u1EA5y t\u1EA5t c\u1EA3 m\u00F3n \u0111\u1EC3 qu\u1EA2 n l\u00FD */
+    /** Lấy tất cả món để quán lý */
     public List<Mon> getAllMon() {
         return monDAO.findAll();
     }
@@ -101,7 +101,7 @@ public class MenuController {
         return 0.0; // Nếu không tìm thấy ở bất kỳ bảng giá nào
     }
 
-    /** Ki\u1EC3m tra xem m\u00F3n c\u00F3 \u0110\u1EE7 nguy\u00EAn li\u1EC7u t\u1ED3n kho \u0111\u1EC3 b\u00E1n kh\u00F4ng */
+    /** Kiểm tra xem món có Đủ nguyên liệu tồn kho để bán không */
     public boolean isHetHang(String maMon) {
         return !inventory.checkTonKhoMoiMon(maMon);
     }
@@ -119,9 +119,9 @@ public class MenuController {
 
         if (!sizeOk) return false;
 
-        // C\u1EADp nh\u1EADt gi\u00E1 trong b\u1EA3ng gi\u00E1 hi\u1EC7n h\u00E0nh
+        // Cập nhật giá trong bảng giá hiện hành
         BangGia activeBG = bangGiaDAO.findHienHanh(LocalDate.now());
-        if (activeBG == null) return true; // Kh\u00F4ng c\u00F3 b\u1EA3ng gi\u00E1 th\u00EC ch\u1EC9 l\u01B0u Size
+        if (activeBG == null) return true; // Không có bảng giá thì chỉ lưu Size
 
         BangGiaChiTiet existing = bgctDAO.findGia(size.getMaSize(), activeBG.getMaBangGia());
         if (existing != null) {

@@ -62,7 +62,7 @@ public class ItemOptionDialog extends JDialog {
 
         // ── 1. Header (Tên món) ──
         JLabel lblName = new JLabel(mon.getTenMon());
-        lblName.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblName.setFont(new Font("Roboto", Font.BOLD, 22));
         lblName.setForeground(new Color(26, 26, 46));
         lblName.setAlignmentX(CENTER_ALIGNMENT);
         main.add(lblName);
@@ -74,7 +74,7 @@ public class ItemOptionDialog extends JDialog {
         sizePanel.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(new Color(220, 220, 220)),
             "Ch\u1ECDn Size", TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Segoe UI", Font.BOLD, 13), new Color(100, 100, 100)
+            new Font("Roboto", Font.BOLD, 13), new Color(100, 100, 100)
         ));
 
         sizeGroup = new ButtonGroup();
@@ -86,7 +86,7 @@ public class ItemOptionDialog extends JDialog {
                 double gia = menuController.getGiaBan(size.getMaSize());
                 String text = size.getTenSize() + " (" + nf.format(gia) + "\u0111)";
                 JRadioButton rb = new JRadioButton(text);
-                rb.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+                rb.setFont(new Font("Roboto", Font.PLAIN, 14));
                 rb.setBackground(Color.WHITE);
                 rb.setFocusable(false);
                 rb.addActionListener(e -> updateTotal());
@@ -110,7 +110,7 @@ public class ItemOptionDialog extends JDialog {
         toppPanel.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(new Color(220, 220, 220)),
             "Topping (C\u00F3 th\u1EC3 ch\u1ECDn nhi\u1EC1u)", TitledBorder.LEFT, TitledBorder.TOP,
-            new Font("Segoe UI", Font.BOLD, 13), new Color(100, 100, 100)
+            new Font("Roboto", Font.BOLD, 13), new Color(100, 100, 100)
         ));
 
         if (toppingList == null || toppingList.isEmpty()) {
@@ -119,7 +119,7 @@ public class ItemOptionDialog extends JDialog {
             for (Topping top : toppingList) {
                 String text = top.getTenTopping() + " (+" + nf.format(top.getGiaTopping()) + "\u0111)";
                 JCheckBox cb = new JCheckBox(text);
-                cb.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                cb.setFont(new Font("Roboto", Font.PLAIN, 13));
                 cb.setBackground(Color.WHITE);
                 cb.setFocusable(false);
                 cb.addActionListener(e -> updateTotal());
@@ -141,13 +141,13 @@ public class ItemOptionDialog extends JDialog {
         gbc.gridx = 0; gbc.gridy = 0;
         gbc.weightx = 0;
         JLabel lblSL = new JLabel("S\u1ED1 l\u01B0\u1EE3ng:");
-        lblSL.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblSL.setFont(new Font("Roboto", Font.BOLD, 13));
         botPanel.add(lblSL, gbc);
 
         gbc.gridx = 1; gbc.gridy = 0;
         gbc.weightx = 0.3;
         spinSoLuong = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
-        spinSoLuong.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        spinSoLuong.setFont(new Font("Roboto", Font.BOLD, 15));
         spinSoLuong.setPreferredSize(new Dimension(80, 32));
         spinSoLuong.addChangeListener(e -> updateTotal());
         botPanel.add(spinSoLuong, gbc);
@@ -155,13 +155,13 @@ public class ItemOptionDialog extends JDialog {
         gbc.gridx = 0; gbc.gridy = 1;
         gbc.weightx = 0;
         JLabel lblGC = new JLabel("Ghi ch\u00FA:");
-        lblGC.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblGC.setFont(new Font("Roboto", Font.BOLD, 13));
         botPanel.add(lblGC, gbc);
 
         gbc.gridx = 1; gbc.gridy = 1;
         gbc.weightx = 1.0;
         txtGhiChu = new JTextField();
-        txtGhiChu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        txtGhiChu.setFont(new Font("Roboto", Font.PLAIN, 14));
         txtGhiChu.setPreferredSize(new Dimension(0, 32));
         botPanel.add(txtGhiChu, gbc);
 
@@ -174,7 +174,7 @@ public class ItemOptionDialog extends JDialog {
         actionPanel.setBackground(Color.WHITE);
 
         lblTotal = new JLabel("T\u1ED5ng: 0\u0111");
-        lblTotal.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblTotal.setFont(new Font("Roboto", Font.BOLD, 18));
         lblTotal.setForeground(new Color(231, 76, 60));
         actionPanel.add(lblTotal, BorderLayout.WEST);
 
@@ -182,7 +182,7 @@ public class ItemOptionDialog extends JDialog {
         pnlBtns.setOpaque(false);
 
         JButton btnCancel = new JButton("H\u1EE6Y");
-        btnCancel.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnCancel.setFont(new Font("Roboto", Font.BOLD, 13));
         btnCancel.setBackground(new Color(240, 240, 240));
         btnCancel.setForeground(new Color(100, 100, 100));
         btnCancel.setFocusable(false);
@@ -190,7 +190,7 @@ public class ItemOptionDialog extends JDialog {
         btnCancel.addActionListener(e -> dispose());
 
         JButton btnAdd = new JButton("TH\u00CAM V\u00C0O GI\u1ECE");
-        btnAdd.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnAdd.setFont(new Font("Roboto", Font.BOLD, 13));
         btnAdd.setBackground(new Color(39, 174, 96));
         btnAdd.setForeground(Color.WHITE);
         btnAdd.setFocusable(false);

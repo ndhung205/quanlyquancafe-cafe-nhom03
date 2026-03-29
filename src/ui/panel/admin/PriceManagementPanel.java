@@ -46,7 +46,7 @@ public class PriceManagementPanel extends JPanel {
         pnlBreadcrumb.setOpaque(false);
         pnlBreadcrumb.add(new JLabel("Admin / Thi\u1EBFt l\u1EADp / "));
         JLabel lblCurrent = new JLabel("B\u1EA3 ng gi\u00E1");
-        lblCurrent.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblCurrent.setFont(new Font("Roboto", Font.BOLD, 13));
         lblCurrent.setForeground(PRIMARY_COLOR);
         pnlBreadcrumb.add(lblCurrent);
         pnlHeader.add(pnlBreadcrumb);
@@ -56,7 +56,7 @@ public class PriceManagementPanel extends JPanel {
         JPanel pnlTitle = new JPanel(new BorderLayout());
         pnlTitle.setOpaque(false);
         JLabel lblTitle = new JLabel("DANH S\u00C1CH B\u1EA2NG GI\u00C1");
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 22));
         lblTitle.setForeground(new Color(44, 62, 80));
         pnlTitle.add(lblTitle, BorderLayout.WEST);
 
@@ -64,7 +64,7 @@ public class PriceManagementPanel extends JPanel {
         btnAdd.setIcon(IconFontSwing.buildIcon(FontAwesome.PLUS, 14, Color.WHITE));
         btnAdd.setBackground(new Color(46, 204, 113));
         btnAdd.setForeground(Color.WHITE);
-        btnAdd.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnAdd.setFont(new Font("Roboto", Font.BOLD, 13));
         btnAdd.setPreferredSize(new Dimension(200, 40));
         btnAdd.addActionListener(e -> handleAdd());
         pnlTitle.add(btnAdd, BorderLayout.EAST);
@@ -81,8 +81,8 @@ public class PriceManagementPanel extends JPanel {
 
         table = new JTable(tableModel);
         table.setRowHeight(50);
-        table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        table.setFont(new Font("Roboto", Font.PLAIN, 14));
+        table.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
         table.getTableHeader().setBackground(new Color(236, 240, 241));
         table.setShowVerticalLines(false);
         

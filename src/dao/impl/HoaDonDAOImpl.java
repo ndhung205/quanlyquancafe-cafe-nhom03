@@ -4,6 +4,7 @@ import connectDB.DatabaseConnection;
 import dao.HoaDonDAO;
 import entity.HoaDon;
 import enums.HinhThucThanhToan;
+import enums.LoaiDon;
 import enums.TrangThaiHoaDon;
 
 import java.sql.*;
@@ -25,14 +26,17 @@ public class HoaDonDAOImpl implements HoaDonDAO {
             rs.getDouble("tongTienPhaiTra"),
             TrangThaiHoaDon.valueOf(rs.getString("trangThai")),
             rs.getString("hinhThucThanhToan") != null ? HinhThucThanhToan.valueOf(rs.getString("hinhThucThanhToan")) : null,
-            rs.getString("maDonHang"),
+            rs.getString("maBan"),
+            rs.getString("maCa"),
+            rs.getString("loaiDon") != null ? LoaiDon.valueOf(rs.getString("loaiDon")) : LoaiDon.TAI_BAN,
+            rs.getString("ghiChu"),
             rs.getString("maNV")
         );
     }
 
     @Override
     public boolean insert(HoaDon hd) {
-        String sql = "INSERT INTO HoaDon(maHD, thoiGianXuat, thoiGianThanhToan, tongTienPhaiTra, trangThai, hinhThucThanhToan, maDonHang, maNV) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO HoaDon(maHD, thoiGianXuat, thoiGianThanhToan, tongTienPhaiTra, trangThai, hinhThucThanhToan, maBan, maCa, loaiDon, ghiChu, maNV) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setString(1, hd.getMaHD());
             ps.setTimestamp(2, hd.getThoiGianXuat() != null ? Timestamp.valueOf(hd.getThoiGianXuat()) : null);
@@ -40,8 +44,11 @@ public class HoaDonDAOImpl implements HoaDonDAO {
             ps.setDouble(4, hd.getTongTienPhaiTra());
             ps.setString(5, hd.getTrangThai().name());
             ps.setString(6, hd.getHinhThucThanhToan() != null ? hd.getHinhThucThanhToan().name() : null);
-            ps.setString(7, hd.getMaDonHang());
-            ps.setString(8, hd.getMaNV());
+            ps.setString(7, hd.getMaBan());
+            ps.setString(8, hd.getMaCa());
+            ps.setString(9, hd.getLoaiDon() != null ? hd.getLoaiDon().name() : "TAI_BAN");
+            ps.setString(10, hd.getGhiChu());
+            ps.setString(11, hd.getMaNV());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("HoaDonDAOImpl.insert: " + e.getMessage());
@@ -51,16 +58,19 @@ public class HoaDonDAOImpl implements HoaDonDAO {
 
     @Override
     public boolean update(HoaDon hd) {
-        String sql = "UPDATE HoaDon SET thoiGianXuat=?, thoiGianThanhToan=?, tongTienPhaiTra=?, trangThai=?, hinhThucThanhToan=?, maDonHang=?, maNV=? WHERE maHD=?";
+        String sql = "UPDATE HoaDon SET thoiGianXuat=?, thoiGianThanhToan=?, tongTienPhaiTra=?, trangThai=?, hinhThucThanhToan=?, maBan=?, maCa=?, loaiDon=?, ghiChu=?, maNV=? WHERE maHD=?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setTimestamp(1, hd.getThoiGianXuat() != null ? Timestamp.valueOf(hd.getThoiGianXuat()) : null);
             ps.setTimestamp(2, hd.getThoiGianThanhToan() != null ? Timestamp.valueOf(hd.getThoiGianThanhToan()) : null);
             ps.setDouble(3, hd.getTongTienPhaiTra());
             ps.setString(4, hd.getTrangThai().name());
             ps.setString(5, hd.getHinhThucThanhToan() != null ? hd.getHinhThucThanhToan().name() : null);
-            ps.setString(6, hd.getMaDonHang());
-            ps.setString(7, hd.getMaNV());
-            ps.setString(8, hd.getMaHD());
+            ps.setString(6, hd.getMaBan());
+            ps.setString(7, hd.getMaCa());
+            ps.setString(8, hd.getLoaiDon() != null ? hd.getLoaiDon().name() : "TAI_BAN");
+            ps.setString(9, hd.getGhiChu());
+            ps.setString(10, hd.getMaNV());
+            ps.setString(11, hd.getMaHD());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("HoaDonDAOImpl.update: " + e.getMessage());
@@ -107,22 +117,9 @@ public class HoaDonDAOImpl implements HoaDonDAO {
     }
 
     @Override
-    public HoaDon findByDonHang(String maDonHang) {
-        String sql = "SELECT * FROM HoaDon WHERE maDonHang=?";
-        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
-            ps.setString(1, maDonHang);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) return mapRow(rs);
-        } catch (SQLException e) {
-            System.err.println("HoaDonDAOImpl.findByDonHang: " + e.getMessage());
-        }
-        return null;
-    }
-
-    @Override
     public List<HoaDon> findByCa(String maCa) {
         List<HoaDon> list = new ArrayList<>();
-        String sql = "SELECT h.* FROM HoaDon h JOIN DonHang d ON h.maDonHang = d.maDonHang WHERE d.maCa = ? ORDER BY h.thoiGianXuat DESC";
+        String sql = "SELECT * FROM HoaDon WHERE maCa=? ORDER BY thoiGianXuat DESC";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setString(1, maCa);
             ResultSet rs = ps.executeQuery();
@@ -145,5 +142,31 @@ public class HoaDonDAOImpl implements HoaDonDAO {
             System.err.println("HoaDonDAOImpl.findByNgay: " + e.getMessage());
         }
         return list;
+    }
+
+    @Override
+    public int countByCa(String maCa) {
+        String sql = "SELECT COUNT(*) FROM HoaDon WHERE maCa=?";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ps.setString(1, maCa);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            System.err.println("HoaDonDAOImpl.countByCa: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    @Override
+    public int countHoanThanhByCa(String maCa) {
+        String sql = "SELECT COUNT(*) FROM HoaDon WHERE maCa=? AND trangThai='DA_THANH_TOAN'";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ps.setString(1, maCa);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            System.err.println("HoaDonDAOImpl.countHoanThanhByCa: " + e.getMessage());
+        }
+        return 0;
     }
 }

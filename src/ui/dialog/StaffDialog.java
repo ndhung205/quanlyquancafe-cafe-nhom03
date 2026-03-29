@@ -70,7 +70,7 @@ public class StaffDialog extends JDialog {
         header.setBorder(new EmptyBorder(0, 25, 0, 25));
 
         JLabel title = new JLabel(" THÔNG TIN CHI TIẾT NHÂN VIÊN");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        title.setFont(new Font("Roboto", Font.BOLD, 18));
         title.setForeground(Color.WHITE);
         title.setIcon(IconFontSwing.buildIcon(FontAwesome.USER_CIRCLE_O, 32, Color.WHITE));
         
@@ -79,7 +79,7 @@ public class StaffDialog extends JDialog {
         // Breadcrumb giả lập ở góc phải
         JLabel breadcrumb = new JLabel("Admin > Nhân viên > " + (isEditMode ? "Cập nhật" : "Thêm mới"));
         breadcrumb.setForeground(new Color(236, 240, 241));
-        breadcrumb.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        breadcrumb.setFont(new Font("Roboto", Font.ITALIC, 13));
         header.add(breadcrumb, BorderLayout.EAST);
 
         return header;
@@ -137,13 +137,13 @@ public class StaffDialog extends JDialog {
         btnSave.setPreferredSize(new Dimension(150, 40));
         btnSave.setBackground(new Color(46, 204, 113));
         btnSave.setForeground(Color.WHITE);
-        btnSave.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSave.setFont(new Font("Roboto", Font.BOLD, 13));
         btnSave.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 16, Color.WHITE));
         btnSave.addActionListener(e -> handleSave());
 
         JButton btnCancel = new JButton("HỦY BỎ");
         btnCancel.setPreferredSize(new Dimension(100, 40));
-        btnCancel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        btnCancel.setFont(new Font("Roboto", Font.PLAIN, 13));
         btnCancel.addActionListener(e -> dispose());
 
         footer.add(btnCancel);
@@ -162,7 +162,7 @@ public class StaffDialog extends JDialog {
         ));
 
         JLabel lblTitle = new JLabel(title);
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 14));
         lblTitle.setForeground(PRIMARY_COLOR);
         lblTitle.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(240,240,240)));
         p.add(lblTitle, BorderLayout.NORTH);
@@ -187,7 +187,7 @@ public class StaffDialog extends JDialog {
     private void addLabelRow(JPanel p, GridBagConstraints gbc, String text, FontAwesome icon) {
         JLabel lbl = new JLabel(" " + text);
         lbl.setIcon(IconFontSwing.buildIcon(icon, 14, Color.GRAY));
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lbl.setFont(new Font("Roboto", Font.BOLD, 12));
         gbc.insets = new Insets(10, 0, 5, 0);
         p.add(lbl, gbc);
         gbc.gridy++;

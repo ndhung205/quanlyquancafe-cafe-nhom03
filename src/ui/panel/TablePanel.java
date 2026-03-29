@@ -7,6 +7,7 @@ import entity.DonHang;
 import entity.KhuVuc;
 import enums.TrangThaiBan;
 import ui.dialog.TakeawayListDialog;
+import utils.OrderManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -53,7 +54,7 @@ public class TablePanel extends JPanel {
         header.setBorder(new EmptyBorder(20, 25, 15, 25));
 
         JLabel lblTitle = new JLabel("\uD83C\uDFE0  S\u01A1 \u0110\u1ED3 B\u00E0n");
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 22));
         lblTitle.setForeground(new Color(26, 26, 46));
         header.add(lblTitle, BorderLayout.WEST);
 
@@ -74,7 +75,7 @@ public class TablePanel extends JPanel {
 
         // Tabs
         tabbedKhuVuc = new JTabbedPane();
-        tabbedKhuVuc.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        tabbedKhuVuc.setFont(new Font("Roboto", Font.BOLD, 13));
         tabbedKhuVuc.addChangeListener(e -> {
             int idx = tabbedKhuVuc.getSelectedIndex();
             if (idx >= 0) {
@@ -111,7 +112,7 @@ public class TablePanel extends JPanel {
         dot.setPreferredSize(new Dimension(14, 14));
 
         JLabel lbl = new JLabel(text);
-        lbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lbl.setFont(new Font("Roboto", Font.PLAIN, 12));
         lbl.setForeground(new Color(100, 100, 100));
 
         p.add(dot);
@@ -206,7 +207,7 @@ public class TablePanel extends JPanel {
 
         // Tên bàn
         JLabel lblName = new JLabel(topLine, SwingConstants.CENTER);
-        lblName.setFont(new Font("Segoe UI", Font.BOLD, isMangVe ? 28 : 20));
+        lblName.setFont(new Font("Roboto", Font.BOLD, isMangVe ? 28 : 20));
         lblName.setForeground(Color.WHITE);
         lblName.setBorder(new EmptyBorder(20, 0, 0, 0));
 
@@ -218,7 +219,7 @@ public class TablePanel extends JPanel {
 
         // Nếu bàn CO_KHACH, hiển thị thêm tiền tạm tính
         if (!isMangVe && TrangThaiBan.CO_KHACH.equals(ban.getTrangThai())) {
-            DonHang dh = tableController.getDonHangDangMo(ban.getMaBan());
+            DonHang dh = OrderManager.getInstance().getOrderByBan(ban.getMaBan());
             if (dh != null && dh.getTongTienTamTinh() > 0) {
                 NumberFormat nf = NumberFormat.getInstance(Locale.forLanguageTag("vi-VN"));
                 subText = nf.format(dh.getTongTienTamTinh()) + "\u0111";
@@ -226,7 +227,7 @@ public class TablePanel extends JPanel {
         }
 
         JLabel lblStatus = new JLabel(subText, SwingConstants.CENTER);
-        lblStatus.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        lblStatus.setFont(new Font("Roboto", Font.PLAIN, 11));
         lblStatus.setForeground(new Color(255, 255, 255, 210));
         lblStatus.setBorder(new EmptyBorder(0, 0, 14, 0));
 

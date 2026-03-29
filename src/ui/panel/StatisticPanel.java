@@ -32,7 +32,7 @@ public class StatisticPanel extends JPanel {
 
         // Header
         JLabel lblTitle = new JLabel("BI\u1EC2U \u0110\u1ED2 TH\u1ED0NG K\u00CA");
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 24));
         lblTitle.setForeground(new Color(44, 62, 80));
         add(lblTitle, BorderLayout.NORTH);
 
@@ -74,7 +74,7 @@ public class StatisticPanel extends JPanel {
             PlotOrientation.VERTICAL,
             false, true, false
         );
-        chartDT.getTitle().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        chartDT.getTitle().setFont(new Font("Roboto", Font.BOLD, 16));
         ChartPanel cpDT = new ChartPanel(chartDT);
         pnlChartDoanhThu.add(cpDT, BorderLayout.CENTER);
 
@@ -93,7 +93,7 @@ public class StatisticPanel extends JPanel {
             PlotOrientation.VERTICAL,
             false, true, false
         );
-        chartMon.getTitle().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        chartMon.getTitle().setFont(new Font("Roboto", Font.BOLD, 16));
         ChartPanel cpMon = new ChartPanel(chartMon);
         pnlChartMonBanChay.add(cpMon, BorderLayout.CENTER);
 

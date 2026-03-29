@@ -34,7 +34,7 @@ public class TakeawayListDialog extends JDialog {
 
         // Header
         JLabel lblTitle = new JLabel("\uD83D\uDECD DANH S\u00C1CH MANG V\u1EC0 \u0110ANG CH\u1EDC");
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 18));
         lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitle.setBorder(new EmptyBorder(0, 0, 15, 0));
         pMain.add(lblTitle, BorderLayout.NORTH);
@@ -49,7 +49,7 @@ public class TakeawayListDialog extends JDialog {
 
         if (listOrders == null || listOrders.isEmpty()) {
             JLabel lblEmpty = new JLabel("(Ch\u01B0a c\u00F3 \u0111\u01A1n ch\u1EDD n\u00E0o)");
-            lblEmpty.setFont(new Font("Segoe UI", Font.ITALIC, 14));
+            lblEmpty.setFont(new Font("Roboto", Font.ITALIC, 14));
             lblEmpty.setForeground(Color.GRAY);
             lblEmpty.setAlignmentX(Component.CENTER_ALIGNMENT);
             bodyPanel.add(Box.createVerticalStrut(50));
@@ -71,7 +71,7 @@ public class TakeawayListDialog extends JDialog {
         pFooter.setBackground(Color.WHITE);
 
         JButton btnNew = new JButton("+ T\u1EA0O \u0110\u01A1N M\u1EDAI");
-        btnNew.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnNew.setFont(new Font("Roboto", Font.BOLD, 14));
         btnNew.setBackground(new Color(46, 204, 113));
         btnNew.setForeground(Color.WHITE);
         btnNew.setFocusPainted(false);
@@ -83,7 +83,7 @@ public class TakeawayListDialog extends JDialog {
         });
 
         JButton btnCancel = new JButton("\u0110\u00F3ng");
-        btnCancel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnCancel.setFont(new Font("Roboto", Font.BOLD, 14));
         btnCancel.setBackground(new Color(230, 230, 230));
         btnCancel.setFocusPainted(false);
         btnCancel.setPreferredSize(new Dimension(100, 40));
@@ -105,11 +105,11 @@ public class TakeawayListDialog extends JDialog {
 
         String time = dh.getThoiGianMo() != null ? dh.getThoiGianMo().format(dtf) : "--:--";
         JLabel lblLeft = new JLabel(String.format("<html><b>[%s]</b> - l\u00FAc %s</html>", dh.getMaDonHang(), time));
-        lblLeft.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        lblLeft.setFont(new Font("Roboto", Font.PLAIN, 15));
         lblLeft.setBorder(new EmptyBorder(10, 15, 10, 15));
 
         JLabel lblRight = new JLabel("T\u1ED5ng: " + nf.format(dh.getTongTienTamTinh()) + "\u0111", SwingConstants.RIGHT);
-        lblRight.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblRight.setFont(new Font("Roboto", Font.BOLD, 14));
         lblRight.setForeground(new Color(231, 76, 60));
         lblRight.setBorder(new EmptyBorder(10, 15, 10, 15));
 
@@ -118,7 +118,7 @@ public class TakeawayListDialog extends JDialog {
         // Thêm tóm tắt món ăn ở giữa
         String summary = orderController.getOrderSummary(dh.getMaDonHang());
         JLabel lblSummary = new JLabel("<html><body style='width: 300px; padding-left: 15px; color: #555; font-style: italic;'>" + summary + "</body></html>");
-        lblSummary.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblSummary.setFont(new Font("Roboto", Font.PLAIN, 12));
         card.add(lblSummary, BorderLayout.CENTER);
 
         card.add(lblRight, BorderLayout.SOUTH);

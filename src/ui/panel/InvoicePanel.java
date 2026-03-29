@@ -41,12 +41,12 @@ public class InvoicePanel extends JPanel {
         header.setBorder(new EmptyBorder(25, 30, 20, 30));
 
         JLabel lblTitle = new JLabel("\uD83D\uDCDC  L\u1ECBch S\u1EED H\u00F3a \u0110\u01A1n");
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        lblTitle.setFont(new Font("Roboto", Font.BOLD, 24));
         lblTitle.setForeground(new Color(44, 62, 80));
         header.add(lblTitle, BorderLayout.WEST);
 
         JButton btnRefresh = new JButton("\u21BB L\u00E0m M\u1EDBi");
-        btnRefresh.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnRefresh.setFont(new Font("Roboto", Font.BOLD, 13));
         btnRefresh.setBackground(new Color(220, 220, 220));
         btnRefresh.setFocusable(false);
         btnRefresh.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -62,7 +62,8 @@ public class InvoicePanel extends JPanel {
 
         String[] cols = {
             "M\u00E3 H\u00F3a \u0110\u01A1n", 
-            "M\u00E3 \u0110\u01A1n H\u00E0ng", 
+            "B\u00E0n", 
+            "Lo\u1EA1i \u0111\u01A1n",
             "T\u1ED5ng Ti\u1EC1n", 
             "T.Gian Th.To\u00E1n",
             "H\u00ECnh Th\u1EE9c",
@@ -74,8 +75,8 @@ public class InvoicePanel extends JPanel {
         };
         table = new JTable(tableModel);
         table.setRowHeight(35);
-        table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        table.setFont(new Font("Roboto", Font.PLAIN, 14));
+        table.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
         table.getTableHeader().setBackground(new Color(240, 240, 240));
 
         JScrollPane scroll = new JScrollPane(table);
@@ -112,7 +113,8 @@ public class InvoicePanel extends JPanel {
             
             tableModel.addRow(new Object[]{
                 hd.getMaHD(),
-                hd.getMaDonHang(),
+                hd.getMaBan() != null ? hd.getMaBan() : "Mang v\u1EC1",
+                hd.getLoaiDon() != null ? hd.getLoaiDon().name() : "",
                 nf.format(hd.getTongTienPhaiTra()) + " \u0111",
                 time,
                 hd.getHinhThucThanhToan() == null ? "" : hd.getHinhThucThanhToan().name(),

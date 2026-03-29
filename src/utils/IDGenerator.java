@@ -64,8 +64,7 @@ public class IDGenerator {
     public static String newMaChiTietPhieuNhap()  { return generate("CTPN",  "ChiTietPhieuNhap",   "maCTPN",     3); }
     public static String newMaTonKho()            { return generate("TK",    "TonKho",             "maTonKho",   3); }
     public static String newMaDatBan()            { return generate("DB",    "DatBan",             "maDatBan",   3); }
-    public static String newMaDonHang()           { return generate("DH",    "DonHang",            "maDonHang",  3); }
-    public static String newMaChiTietDonHang()    { return generate("CTDH",  "ChiTietDonHang",     "maCTDH",     3); }
-    public static String newMaCTDHTopping()       { return generate("CTDHT", "ChiTietDonHangTopping", "maID",    3); }
     public static String newMaHoaDon()            { return generate("HD",    "HoaDon",             "maHD",       3); }
+    public static String newMaChiTietHoaDon()     { return generate("CTHD",  "ChiTietHoaDon",      "maCTHD",     3); }
+    public static String newMaCTHDTopping()       { return generate("CTHDT", "ChiTietHoaDonTopping", "maID",      3); }
 }

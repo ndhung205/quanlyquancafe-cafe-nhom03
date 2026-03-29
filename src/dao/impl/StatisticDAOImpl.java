@@ -18,12 +18,8 @@ public class StatisticDAOImpl implements StatisticDAO {
 
     @Override
     public Map<String, Double> getDoanhThu7NgayQua() {
-        // LinkedHashMap giữ thứ tự chèn. Mình muốn ngày cũ nhất đến ngày mới nhất.
         Map<String, Double> result = new LinkedHashMap<>();
         
-        // SQL Server query: nhóm theo ngày của 7 ngày gần nhất, sx tăng dần
-        // Dùng FORMAT() hoặc CONVERT để format ngày dd/MM. 
-        // Lấy hóa đơn Đã thanh toán
         String sql = """
             WITH CTE_Dates AS (
                 SELECT CAST(GETDATE() - 6 AS DATE) AS d
@@ -53,12 +49,13 @@ public class StatisticDAOImpl implements StatisticDAO {
     public Map<String, Integer> getTopMonBanChay(int top) {
         Map<String, Integer> result = new LinkedHashMap<>();
         
+        // Đổi từ ChiTietDonHang JOIN DonHang → ChiTietHoaDon JOIN HoaDon
         String sql = """
             SELECT TOP (?) m.tenMon, SUM(ct.soLuong) as TongSL
-            FROM ChiTietDonHang ct
-            JOIN DonHang dh ON ct.maDonHang = dh.maDonHang
+            FROM ChiTietHoaDon ct
+            JOIN HoaDon hd ON ct.maHD = hd.maHD
             JOIN Mon m ON ct.maMon = m.maMon
-            WHERE dh.trangThai = 'DA_HOAN_THANH'
+            WHERE hd.trangThai = 'DA_THANH_TOAN'
             GROUP BY m.tenMon
             ORDER BY TongSL DESC
         """;
