@@ -47,7 +47,7 @@ CREATE TABLE NhanVien (
     CONSTRAINT PK_NhanVien      PRIMARY KEY (maNV),
     CONSTRAINT UQ_NV_Username   UNIQUE (username),
     CONSTRAINT UQ_NV_SDT        UNIQUE (soDienThoai),
-    CONSTRAINT CHK_NV_TrangThai CHECK (trangThai IN ('DANG_LAM_VIEC','DA_NGHI','TAM_NGHI')),
+    CONSTRAINT CHK_NV_TrangThai CHECK (trangThai IN ('DANG_LAM_VIEC','DA_NGHI')),
     CONSTRAINT CHK_NV_VaiTro    CHECK (vaiTro    IN ('QUAN_LY','NHAN_VIEN'))
 );
 GO

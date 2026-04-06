@@ -43,7 +43,6 @@ public class LoginForm extends JFrame {
         card.setBorder(new EmptyBorder(45, 45, 45, 45));
         card.setPreferredSize(new Dimension(380, 440));
 
-
         // Logo
         JLabel lblIcon = new JLabel("\u2615", SwingConstants.CENTER);
         lblIcon.setFont(new Font("Roboto", Font.PLAIN, 52));
@@ -60,23 +59,26 @@ public class LoginForm extends JFrame {
         lblSub.setAlignmentX(CENTER_ALIGNMENT);
 
         // Username field
-        JLabel lblUser = new JLabel("Tên đăng nhập");
+        JLabel lblUser = new JLabel("Tên đăng nhập", SwingConstants.LEFT);
         lblUser.setFont(new Font("Roboto", Font.BOLD, 12));
         lblUser.setForeground(new Color(100, 100, 100));
-        lblUser.setAlignmentX(LEFT_ALIGNMENT);
+        lblUser.setAlignmentX(CENTER_ALIGNMENT);
+        lblUser.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
 
         txtUsername = new JTextField();
+        txtUsername.setAlignmentX(CENTER_ALIGNMENT);
         txtUsername.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
         txtUsername.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Username");
 
-
         // Password field
-        JLabel lblPass = new JLabel("Mật khẩu");
+        JLabel lblPass = new JLabel("Mật khẩu", SwingConstants.LEFT);
         lblPass.setFont(new Font("Roboto", Font.BOLD, 12));
         lblPass.setForeground(new Color(100, 100, 100));
-        lblPass.setAlignmentX(LEFT_ALIGNMENT);
+        lblPass.setAlignmentX(CENTER_ALIGNMENT);
+        lblPass.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
 
         txtPassword = new JPasswordField();
+        txtPassword.setAlignmentX(CENTER_ALIGNMENT);
         txtPassword.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
         txtPassword.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mật khẩu");
         txtPassword.putClientProperty(FlatClientProperties.STYLE, "showRevealButton: true");
@@ -125,7 +127,7 @@ public class LoginForm extends JFrame {
                 // Đã có ca đang mở → vào thẳng MainFrame
                 openMainFrame();
             } else if (VaiTro.NHAN_VIEN.equals(nv.getVaiTro())) {
- 
+
                 boolean daChapNhanMoCa = showShiftOpenDialog();
                 if (!daChapNhanMoCa) {
                     authController.logout();
@@ -135,14 +137,13 @@ public class LoginForm extends JFrame {
             } else {
                 // QUAN_LY: hỏi có muốn mở ca không
                 int choice = JOptionPane.showOptionDialog(this,
-                    "Bạn có muốn mở ca làm việc không?\n(Bỏ qua nếu chỉ cần xem báo cáo/quản trị)",
-                    "Mở ca làm việc",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    new String[]{"Mở Ca", "Bỏ Qua"},
-                    "Bỏ Qua"
-                );
+                        "Bạn có muốn mở ca làm việc không?\n(Bỏ qua nếu chỉ cần xem báo cáo/quản trị)",
+                        "Mở ca làm việc",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new String[] { "Mở Ca", "Bỏ Qua" },
+                        "Bỏ Qua");
                 if (choice == 0) {
                     showShiftOpenDialog();
                 }
@@ -153,7 +154,8 @@ public class LoginForm extends JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Lỗi đăng nhập", JOptionPane.WARNING_MESSAGE);
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu!", "Lỗi hệ thống", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu!", "Lỗi hệ thống",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 

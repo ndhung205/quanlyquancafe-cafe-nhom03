@@ -87,7 +87,6 @@ D:\PHAT_TRIEN_UD\quanlyquancafe-cafe-nhom03\src\enums\TrangThaiHoaDon.java
 D:\PHAT_TRIEN_UD\quanlyquancafe-cafe-nhom03\src\enums\TrangThaiNhanVien.java
 D:\PHAT_TRIEN_UD\quanlyquancafe-cafe-nhom03\src\enums\VaiTro.java
 D:\PHAT_TRIEN_UD\quanlyquancafe-cafe-nhom03\src\exception\AppException.java
-D:\PHAT_TRIEN_UD\quanlyquancafe-cafe-nhom03\src\test\TestLogin.java
 D:\PHAT_TRIEN_UD\quanlyquancafe-cafe-nhom03\src\ui\LoginForm.java
 D:\PHAT_TRIEN_UD\quanlyquancafe-cafe-nhom03\src\ui\MainFrame.java
 D:\PHAT_TRIEN_UD\quanlyquancafe-cafe-nhom03\src\ui\dialog\InvoiceDetailDialog.java
